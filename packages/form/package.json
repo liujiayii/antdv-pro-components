@@ -1,0 +1,14 @@
+{
+  "name": "@antdv/pro-form",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "classnames": "^2.4.0",
+    "dayjs": "^1.11.10"
+  },
+  "devDependencies": {
+    "ant-design-vue": "4.0.8",
+    "query-string": "^8.1.0",
+    "sass": "^1.69.5"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "extends": ["@tsconfig/node20/tsconfig.json", "@vue/tsconfig/tsconfig.dom.json"],
+  "include": [
+    "vite.config.*",
+    "vitest.config.*",
+    "cypress.config.*",
+    "nightwatch.conf.*",
+    "playwright.config.*",
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/**/*.jsx",
+    "src/**/*.tsx",
+    "config/**/*",
+    "config/*.ts"
+  ],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node"],
+    "baseUrl": ".",
+    "allowJs": true,
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@antdv/pro-table": ["../../pro-components/table/src/index.ts"]
+    },
+    "rootDirs": ["."],
+    "ignoreDeprecations": "5.0",
+    "suppressImplicitAnyIndexErrors": true
+  }
+}

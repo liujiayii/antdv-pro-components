@@ -1,0 +1,25 @@
+# Editor directories and files
+.idea
+
+# Package Manager
+node_modules
+
+# System
+.DS_Store
+
+# Bundle
+dist
+coverage
+.dumi
+
+# local env files
+*.local
+
+.umi
+.umi-production
+#yarn.lock
+
+**/es/**
+**/lib/**
+packages/element-plus-react/theme-chalk
+packages/element-plus-react/README.md

@@ -1,0 +1,17 @@
+.tableHeader {
+  //让表格上方的操作栏居右排列
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 11px 16px 11px 8px;
+  background-color: #fff;
+
+  .toolBar {
+    font-size: 14px;
+    margin-left: 4px;
+    line-height: 32px;
+  }
+
+  & > button {
+    margin-right: 8px;
+  }
+}

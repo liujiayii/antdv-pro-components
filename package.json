@@ -1,0 +1,37 @@
+{
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "build": "pnpm -r --filter=@antdv/pro-table run build"
+  },
+  "devDependencies": {
+    "@antdv/pro-card": "workspace:*",
+    "@antdv/pro-form": "workspace:*",
+    "@antdv/pro-table": "workspace:*",
+    "@rushstack/eslint-patch": "^1.6.1",
+    "@tsconfig/node20": "^20.1.2",
+    "@types/node": "^20.10.3",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "@vue/eslint-config-typescript": "^12.0.0",
+    "@vue/tsconfig": "^0.5.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.55.0",
+    "eslint-plugin-vue": "^9.19.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.0",
+    "sass": "^1.69.5",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.10"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": "eslint --fix"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": []
+    }
+  }
+}

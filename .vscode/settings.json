@@ -1,0 +1,12 @@
+{
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "cSpell.words": ["ahooks", "antd", "antdv", "xiaodou"],
+  "unocss.remToPxPreview": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  }
+}
