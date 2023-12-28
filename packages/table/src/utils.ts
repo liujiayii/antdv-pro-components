@@ -12,6 +12,7 @@ export const pageConfig: TablePaginationConfig = {
 
 export type IValueType = "dateTime" | "date" | "time" | "money" | "option";
 //值类型
+//@ts-ignore
 export const valueType: Record<IValueType, (record: any) => string | undefined> = {
   dateTime: ({ text }: { text?: string }) => text && dayjs(text).format("YYYY/MM/DD HH:mm:ss"),
   date: ({ text }: { text?: string }) => text && dayjs(text).format("YYYY/MM/DD"),
