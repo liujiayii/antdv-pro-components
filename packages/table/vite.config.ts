@@ -11,11 +11,16 @@ export default defineConfig({
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, "./src/index.ts"),
       formats: ["es"],
-      fileName: "index",
+      fileName: (format, entryName) => {
+        return entryName + ".js";
+      },
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ["vue", "lodash-es", "@ant-design/icons-vue", "ant-design-vue"],
+      external: ["vue", "lodash-es", "@ant-design/icons-vue", "ant-design-vue", "dayjs"],
+      output: {
+        preserveModules: true,
+      },
     },
   },
 });
