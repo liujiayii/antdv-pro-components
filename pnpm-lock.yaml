@@ -8,13 +8,13 @@ importers:
 
   .:
     devDependencies:
-      '@antdv/pro-card':
+      '@antd-vc/pro-card':
         specifier: workspace:*
         version: link:packages/card
-      '@antdv/pro-form':
+      '@antd-vc/pro-form':
         specifier: workspace:*
         version: link:packages/form
-      '@antdv/pro-table':
+      '@antd-vc/pro-table':
         specifier: workspace:*
         version: link:packages/table
       '@rushstack/eslint-patch':

@@ -1,13 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "prepare": "husky install",
-    "build": "pnpm -r --filter=@antdv/pro-table run build"
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "@antdv/pro-card": "workspace:*",
-    "@antdv/pro-form": "workspace:*",
-    "@antdv/pro-table": "workspace:*",
+    "@antd-vc/pro-card": "workspace:*",
+    "@antd-vc/pro-form": "workspace:*",
+    "@antd-vc/pro-table": "workspace:*",
     "@rushstack/eslint-patch": "^1.6.1",
     "@tsconfig/node20": "^20.1.2",
     "@types/lodash-es": "^4.17.12",
