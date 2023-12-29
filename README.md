@@ -4,4 +4,5 @@
 
 ```
 pnpm link ../../../antdv-pro-components/packages/table
+pnpm unlink
 ```
