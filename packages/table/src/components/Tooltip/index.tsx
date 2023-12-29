@@ -28,10 +28,9 @@ export default defineComponent({
                   style={{ width: "100px" }}
                   onClick={({ keyPath }) => {
                     //@ts-ignore
-                    // eslint-disable-next-line vue/no-mutating-props
                     props.tableSize?.value = keyPath as SizeType[];
                   }}
-                  v-model:selectedKeys={props.tableSize?.value}
+                  v-model:selectedKeys={props.tableSize.value}
                 >
                   <Menu.Item key="default">默认</Menu.Item>
                   <Menu.Item key="middle">中等</Menu.Item>
