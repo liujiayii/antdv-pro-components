@@ -6,6 +6,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [vue(), vueJsx()],
   build: {
+    outDir: "es",
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, "./src/index.ts"),

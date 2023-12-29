@@ -13,7 +13,7 @@
     "noEmit": false,
     "emitDeclarationOnly": true,
     "declaration": true,
-    "declarationDir": "dist",
+    "declarationDir": "es",
     "skipLibCheck": true
   }
 }

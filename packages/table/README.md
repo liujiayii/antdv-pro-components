@@ -59,7 +59,7 @@ import { ProTable } from "@antd-vc/pro-table";
 引入样式：
 
 ```jsx
-import "@antd-vc/pro-table/dist/style.css";
+import "@antd-vc/pro-table/es/style.css";
 ```
 
 ---
