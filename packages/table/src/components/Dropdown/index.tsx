@@ -22,6 +22,7 @@ export default defineComponent({
 
     // //
     // const tempClassName = getPrefixCls('pro-table-dropdown');
+    //@ts-ignore
     const DropdownButton = ({ children, menus, onSelect, style }) => {
       //  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
@@ -29,7 +30,7 @@ export default defineComponent({
 
       const dropdownProps = menuOverlayCompatible({
         onClick: (params) => onSelect && onSelect(params.key as string),
-        items: menus?.map((item) => ({
+        items: menus?.map((item: any) => ({
           label: item.name,
           key: item.key,
         })),
@@ -49,14 +50,14 @@ export default defineComponent({
     };
 
     const TableDropdown: {
-      Button: typeof DropdownButton;
+      Button: typeof DropdownButton; //@ts-ignore
     } = ({ style, onSelect, menus = [], children }) => {
       // const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
       // const className = getPrefixCls("pro-table-dropdown");
       const dropdownProps = menuOverlayCompatible({
         onClick: (params) => {
           onSelect?.(params.key as string);
-        },
+        }, //@ts-ignore
         items: menus.map(({ key, name, ...rest }) => ({
           key,
           ...rest,
