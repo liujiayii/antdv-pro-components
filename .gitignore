@@ -21,5 +21,4 @@ coverage
 
 **/es/**
 **/lib/**
-packages/element-plus-react/theme-chalk
-packages/element-plus-react/README.md
+tsconfig.tsbuildinfo
