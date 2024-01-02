@@ -10,7 +10,10 @@
 
 <p align="center">@antd-vc/pro-table</p>
 
-- 🔥 Written in TypeScript
+- 🔥 Written in TypeScript & jsx
+- 🔥 使用typescript和jsx开发
+- ⚠️ For personal learning purposes only, please do not use in production environments.
+- ⚠️ 仅供个人学习使用，请勿在生产环境中使用
 
 ---
 
