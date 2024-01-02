@@ -7,6 +7,7 @@ export type IValueEnum =
   | Record<string, { status: BadgeProps["status"]; text: string }>;
 
 export type IValueType = "dateTime" | "date" | "time" | "money" | "option";
+
 export type ProColumns = {
   search?: boolean | { options: { value: any[] } };
   dataIndex: string;
@@ -72,4 +73,30 @@ export const ProTableProps = {
     type: Function as PropType<(data: any) => void>,
     default: undefined,
   },
+};
+
+export type PageInfo = {
+  pageSize: number;
+  total: number;
+  current: number;
+};
+
+/** 操作类型 */
+export type ProCoreActionType = {
+  /** @name 刷新 */
+  reload: (resetPageIndex?: boolean) => Promise<void>;
+  /** @name 刷新并清空，只清空页面，不包括表单 */
+  //reloadAndRest?: () => Promise<void>;
+  /** @name 重置任何输入项，包括表单 */
+  //reset?: () => void;
+  /** @name 清空选择 */
+  //clearSelected?: () => void;
+  /** @name p页面的信息都在里面 */
+  // pageInfo?: PageInfo;
+};
+
+/** 操作类型 */
+export type ActionType = ProCoreActionType & {
+  // fullScreen?: () => void;
+  // setPageInfo?: (page: Partial<PageInfo>) => void;
 };
