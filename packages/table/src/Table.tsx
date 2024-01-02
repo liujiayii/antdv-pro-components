@@ -17,7 +17,8 @@ import type { TablePaginationConfig } from "ant-design-vue/es/table";
 import { cloneDeep, isFunction } from "lodash-es";
 import { computed, defineComponent, onMounted, reactive, ref } from "vue";
 import ToolBar from "./components/ToolBar";
-import { ProTableProps, type IValueEnum, type ProColumns } from "./typing";
+import type { ActionType, IValueEnum, ProColumns } from "./typing";
+import { ProTableProps } from "./typing";
 import { pageConfig, valueType } from "./utils";
 import { formColConfig, showSearch } from "./utils/utils";
 
@@ -98,18 +99,7 @@ export default defineComponent({
         return;
       }
       loading.value = true;
-      const searchParams = { ...modelRef };
-      if (modelRef.isActive) {
-        if (modelRef.isActive === "all") {
-          searchParams.isActive = null;
-        } else if (modelRef.isActive === "0") {
-          searchParams.isActive = 0;
-        } else if (modelRef.isActive === "1") {
-          searchParams.isActive = 1;
-        }
-      }
-
-      let allObj = { ...params, ...searchParams, ...props.params };
+      let allObj = { ...params, ...modelRef, ...props.params };
       if (props.beforeSearchSubmit) {
         allObj = props.beforeSearchSubmit(allObj);
       }
@@ -132,7 +122,7 @@ export default defineComponent({
       });
     };
 
-    const handleTableChange = (page = pagination.value) => {
+    const handleTableChange = async (page = pagination.value) => {
       const pageTemp = { ...pagination.value };
       pageTemp.current = page.current;
       pageTemp.pageSize = page.pageSize;
@@ -148,7 +138,7 @@ export default defineComponent({
 
       fetch({ current: 1, pageSize: pagination.value.pageSize });
     };
-    const actionRef = {
+    const actionRef: ActionType = {
       reload: () => handleTableChange(),
     };
 
