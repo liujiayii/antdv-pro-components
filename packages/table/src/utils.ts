@@ -1,5 +1,6 @@
 import type { TablePaginationConfig } from "ant-design-vue/es/table";
 import dayjs from "dayjs";
+import type { IValueType } from "./typing";
 
 export const pageConfig: TablePaginationConfig = {
   size: "small",
@@ -10,7 +11,6 @@ export const pageConfig: TablePaginationConfig = {
   current: 1,
 };
 
-export type IValueType = "dateTime" | "date" | "time" | "money" | "option";
 //值类型
 //@ts-ignore
 export const valueType: Record<IValueType, (record: any) => string | undefined> = {

@@ -2,8 +2,9 @@ import { ColumnHeightOutlined, ReloadOutlined } from "@ant-design/icons-vue";
 import { Divider, Dropdown, Menu, Space, Tooltip } from "ant-design-vue";
 import { defineComponent } from "vue";
 import styles from "./style.module.scss";
+
 export default defineComponent({
-  name: "proTooltip",
+  name: "ToolBar",
   props: {
     actionRef: Object, //表格操作
     title: {

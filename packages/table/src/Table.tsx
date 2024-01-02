@@ -11,40 +11,20 @@ import {
   Space,
   Table,
 } from "ant-design-vue";
-import type { BadgeProps } from "ant-design-vue/es/badge";
 import type { SizeType } from "ant-design-vue/es/config-provider";
 import type { FormInstance } from "ant-design-vue/es/form";
-import type { ColumnType, TablePaginationConfig } from "ant-design-vue/es/table";
+import type { TablePaginationConfig } from "ant-design-vue/es/table";
 import { cloneDeep, isFunction } from "lodash-es";
 import { computed, defineComponent, onMounted, reactive, ref } from "vue";
-// import Dropdown from "./components/Dropdown";
-import Tooltip from "./components/Tooltip";
-import { pageConfig, valueType, type IValueType } from "./utils";
+import ToolBar from "./components/ToolBar";
+import { ProTableProps, type IValueEnum, type ProColumns } from "./typing";
+import { pageConfig, valueType } from "./utils";
 import { formColConfig, showSearch } from "./utils/utils";
-
-type IValueEnum =
-  | Record<string, string>
-  | Record<string, { status: BadgeProps["status"]; text: string }>;
-type IColumns = {
-  search?: boolean | { options: { value: any[] } };
-  dataIndex: string;
-  renderFormItem?: (
-    _: any,
-    field: {
-      modelRef: any; //透传表单对象和字段，使父组件可以双向绑定
-      fields: any;
-      placeholder: any;
-    },
-  ) => any;
-  valueEnum?: IValueEnum;
-  valueType?: IValueType;
-  hideInTable?: boolean;
-} & ColumnType;
 
 //值的枚举
 const formatValueEnum = (valueEnum: IValueEnum) => {
   return ({ text }: { text: string }) => {
-    let field = valueEnum[text];
+    const field = valueEnum[text];
     if (typeof field === "object") {
       return <Badge status={field.status} text={field.text} />;
     } else if (typeof field === "string") {
@@ -55,7 +35,7 @@ const formatValueEnum = (valueEnum: IValueEnum) => {
   };
 };
 
-const formatTableColumns = (data: IColumns[]) => {
+const formatTableColumns = (data: ProColumns[]) => {
   return data
     .map((item) => {
       if (item.hideInTable) {
@@ -84,54 +64,7 @@ const EmptyPagination = () => {
 
 export default defineComponent({
   name: "ProTable",
-  props: {
-    request: {
-      type: [Function],
-      default: undefined,
-    },
-    columns: Array, //字段
-    rowKey: {
-      type: [String, Object, Number], //key
-      default: undefined,
-    },
-    title: {
-      type: [Array, Boolean],
-      default: undefined,
-    }, //表格左上侧
-    actionRef: Function, //表格操作
-    formRef: Function,
-    formExtraRef: Function,
-    params: {
-      type: [Object],
-      default: undefined,
-    }, //默认参数
-    search: {
-      //搜索
-      type: [Boolean, Object],
-      default: true,
-    },
-    textSearch: {
-      type: [String],
-      default: undefined,
-    },
-    lookUpCondition: {
-      type: [Function],
-      default: undefined,
-    },
-    expandable: Object,
-    dataSource: {
-      type: [Array],
-      default: undefined,
-    },
-    beforeSearchSubmit: {
-      type: [Function],
-      default: undefined,
-    },
-    onLoad: {
-      type: [Function],
-      default: undefined,
-    },
-  },
+  props: ProTableProps,
   setup(props) {
     //console.log(props);
 
@@ -142,10 +75,11 @@ export default defineComponent({
     //过滤搜索字段
     //const searchFields = {};
     // console.log('props.columns',props.columns);
-    const searchArr = computed<IColumns[]>(() => {
+    const searchArr = computed<ProColumns[]>(() => {
       return (
-        (props.columns as IColumns[])?.filter((item) => item.search !== false && item.dataIndex) ||
-        []
+        (props.columns as ProColumns[])?.filter(
+          (item) => item.search !== false && item.dataIndex,
+        ) || []
       );
     });
 
@@ -164,7 +98,7 @@ export default defineComponent({
         return;
       }
       loading.value = true;
-      let searchParams = { ...modelRef };
+      const searchParams = { ...modelRef };
       if (modelRef.isActive) {
         if (modelRef.isActive === "all") {
           searchParams.isActive = null;
@@ -188,8 +122,7 @@ export default defineComponent({
 
           pageTemp.total = res?.data?.total;
           pageTemp.current = params.current;
-          let newCode = [...res?.data?.records];
-          tableData.value = newCode;
+          tableData.value = res?.data?.records || [];
 
           pagination.value = pageTemp;
           if (isFunction(props.onLoad)) {
@@ -347,14 +280,7 @@ export default defineComponent({
           </Card>
         )}
         <Card bordered={false} bodyStyle={{ padding: "0 24px" }}>
-          <Tooltip actionRef={actionRef} title={props.title} tableSize={tableSize} />
-          {/* <Dropdown
-            key="actionGroup"
-            menus={[
-              { key: "copy", name: "复制" },
-              { key: "delete", name: "删除" },
-            ]}
-          ></proDropdown> */}
+          <ToolBar actionRef={actionRef} title={props.title} tableSize={tableSize} />
           <Table
             bordered
             columns={formatTableColumns(props.columns as any) as any}
