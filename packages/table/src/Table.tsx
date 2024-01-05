@@ -14,7 +14,7 @@ import {
 import type { SizeType } from "ant-design-vue/es/config-provider";
 import type { FormInstance } from "ant-design-vue/es/form";
 import type { TablePaginationConfig } from "ant-design-vue/es/table";
-import { cloneDeep, isFunction } from "lodash-es";
+import { cloneDeep, isFunction, omit } from "lodash-es";
 import { computed, defineComponent, onMounted, reactive, ref } from "vue";
 import ToolBar from "./components/ToolBar";
 import type { ActionType, IValueEnum, ProColumns } from "./typing";
@@ -93,7 +93,7 @@ export default defineComponent({
     const fetch = (
       params: { current?: number; pageSize?: number } = { current: 1, pageSize: 10 },
     ) => {
-      console.log("fetch");
+      console.log("fetch", params);
       //console.log(modelRef);
       if (!props.request) {
         return;
@@ -147,7 +147,6 @@ export default defineComponent({
       props?.formExtraRef({
         setFieldsValue: (values: any) => {
           console.log(values);
-          Object.assign(modelRef, values);
           // 分页参数，后面需要改成pros.pagination传过来
           if (values.current) {
             pagination.value.current = +values.current;
@@ -155,6 +154,7 @@ export default defineComponent({
           if (values.pageSize) {
             pagination.value.pageSize = +values.pageSize;
           }
+          Object.assign(modelRef, omit(values, ["current", "pageSize"]));
         },
       });
     }
