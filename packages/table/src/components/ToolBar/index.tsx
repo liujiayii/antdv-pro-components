@@ -1,6 +1,6 @@
 import { ColumnHeightOutlined, ReloadOutlined } from "@ant-design/icons-vue";
 import { Divider, Dropdown, Menu, Space, Tooltip } from "ant-design-vue";
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
 import styles from "./style.module.scss";
 
 export default defineComponent({
@@ -11,9 +11,9 @@ export default defineComponent({
       type: [Array, Boolean],
       default: undefined,
     }, //表格左上侧
-    tableSize: Object,
   },
   setup(props) {
+    const tableSize: any = inject("tableSize");
     return () => (
       <div class={styles.tableHeader}>
         <Space size="middle" class={styles.toolBar}>
@@ -28,10 +28,9 @@ export default defineComponent({
                 <Menu
                   style={{ width: "100px" }}
                   onClick={({ keyPath }) => {
-                    //@ts-ignore
-                    //  props.tableSize?.value = keyPath as SizeType[];
+                    tableSize.value = keyPath;
                   }}
-                  // v-model:selectedKeys={props.tableSize.value}
+                  v-model:selectedKeys={tableSize.value}
                 >
                   <Menu.Item key="default">默认</Menu.Item>
                   <Menu.Item key="middle">中等</Menu.Item>
