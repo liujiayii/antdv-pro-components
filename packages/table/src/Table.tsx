@@ -16,7 +16,8 @@ import type { TablePaginationConfig } from "ant-design-vue/es/table";
 import { cloneDeep, isFunction, omit } from "lodash-es";
 import { computed, defineComponent, onMounted, provide, reactive, ref } from "vue";
 import ToolBar from "./components/ToolBar";
-import { tableSize } from "./store";
+// import { tableSize } from "./store";
+import type { SizeType } from "ant-design-vue/es/config-provider";
 import type { ActionType, IValueEnum, ProColumns } from "./typing";
 import { ProTableProps } from "./typing";
 import { pageConfig, valueType } from "./utils";
@@ -72,7 +73,7 @@ export default defineComponent({
     const tableData = ref<any[]>([]);
     const loading = ref(false);
     const pagination = ref<TablePaginationConfig>(cloneDeep(pageConfig));
-    // const tableSize = ref<SizeType[]>(["middle"]);
+    const tableSize = ref<SizeType[]>(["middle"]);
     provide("tableSize", tableSize);
     //过滤搜索字段
     //const searchFields = {};
