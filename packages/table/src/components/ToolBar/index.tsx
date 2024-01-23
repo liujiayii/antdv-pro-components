@@ -11,6 +11,10 @@ export default defineComponent({
       type: [Array, Boolean],
       default: undefined,
     }, //表格左上侧
+    // columns: {
+    //   type: Array,
+    //   default: undefined,
+    // }, //表格列
   },
   setup(props) {
     const tableSize: any = inject("tableSize");
@@ -41,6 +45,11 @@ export default defineComponent({
               <ColumnHeightOutlined />
             </Dropdown>
           </Tooltip>
+          {/* <Tooltip title="列设置">
+            <Dropdown>
+              <SettingOutlined />
+            </Dropdown>
+          </Tooltip> */}
         </Space>
         {props.title}
       </div>
