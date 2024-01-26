@@ -8,9 +8,10 @@
   "files": [
     "es"
   ],
-  "module": "./es/index.js",
-  "types": "./es/index.d.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "devDependencies": {
+    "@antd-vc/pro-form": "*",
     "@ant-design/icons-vue": "^7.0.1",
     "ant-design-vue": "4.0.8",
     "classnames": "^2.4.0",

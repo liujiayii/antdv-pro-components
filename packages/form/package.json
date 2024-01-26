@@ -1,14 +1,15 @@
 {
   "name": "@antd-vc/pro-form",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "classnames": "^2.4.0",
-    "dayjs": "^1.11.10"
-  },
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "devDependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
     "ant-design-vue": "4.0.8",
+    "classnames": "^2.5.0",
+    "dayjs": "^1.11.10",
     "query-string": "^8.1.0",
-    "sass": "^1.69.5"
+    "sass": "^1.69.5",
+    "vue": "^3.3.13"
   }
 }

@@ -96,29 +96,37 @@ importers:
         version: 1.69.5
 
   packages/form:
-    dependencies:
+    devDependencies:
+      '@ant-design/icons-vue':
+        specifier: ^7.0.1
+        version: 7.0.1(vue@3.3.13)
+      ant-design-vue:
+        specifier: 4.0.8
+        version: 4.0.8(vue@3.3.13)
       classnames:
-        specifier: ^2.4.0
+        specifier: ^2.5.0
         version: 2.5.0
       dayjs:
         specifier: ^1.11.10
         version: 1.11.10
-    devDependencies:
-      ant-design-vue:
-        specifier: 4.0.8
-        version: 4.0.8(vue@3.3.13)
       query-string:
         specifier: ^8.1.0
         version: 8.1.0
       sass:
         specifier: ^1.69.5
         version: 1.69.5
+      vue:
+        specifier: ^3.3.13
+        version: 3.3.13(typescript@5.3.3)
 
   packages/table:
     devDependencies:
       '@ant-design/icons-vue':
         specifier: ^7.0.1
         version: 7.0.1(vue@3.3.13)
+      '@antd-vc/pro-form':
+        specifier: '*'
+        version: link:../form
       ant-design-vue:
         specifier: 4.0.8
         version: 4.0.8(vue@3.3.13)
@@ -133,7 +141,7 @@ importers:
         version: 8.1.0
       vue:
         specifier: ^3.3.13
-        version: 3.3.13
+        version: 3.3.13(typescript@5.3.3)
 
 packages:
 
@@ -167,7 +175,7 @@ packages:
     dependencies:
       '@ant-design/colors': 6.0.0
       '@ant-design/icons-svg': 4.3.1
-      vue: 3.3.13
+      vue: 3.3.13(typescript@5.3.3)
     dev: true
 
   /@babel/code-frame@7.23.5:
@@ -1091,8 +1099,8 @@ packages:
       '@babel/core': 7.23.6
       '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.23.6)
       '@vue/babel-plugin-jsx': 1.1.5(@babel/core@7.23.6)
-      vite: 5.0.10(sass@1.69.5)
-      vue: 3.3.13
+      vite: 5.0.10(@types/node@20.10.5)(sass@1.69.5)
+      vue: 3.3.13(typescript@5.3.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1104,8 +1112,8 @@ packages:
       vite: ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.0.10(sass@1.69.5)
-      vue: 3.3.13
+      vite: 5.0.10(@types/node@20.10.5)(sass@1.69.5)
+      vue: 3.3.13(typescript@5.3.3)
     dev: true
 
   /@vue/babel-helper-vue-transform-on@1.1.5:
@@ -1242,7 +1250,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.3.13
       '@vue/shared': 3.3.13
-      vue: 3.3.13
+      vue: 3.3.13(typescript@5.3.3)
     dev: true
 
   /@vue/shared@3.3.13:
@@ -1338,7 +1346,7 @@ packages:
       shallow-equal: 1.2.1
       stylis: 4.3.1
       throttle-debounce: 5.0.0
-      vue: 3.3.13
+      vue: 3.3.13(typescript@5.3.3)
       vue-types: 3.0.2(vue@3.3.13)
       warning: 4.0.3
     dev: true
@@ -2797,42 +2805,6 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vite@5.0.10(sass@1.69.5):
-    resolution: {integrity: sha512-2P8J7WWgmc355HUMlFrwofacvr98DAjoE52BfdbwQtyLH06XKwaL/FMnmKM2crF0iX4MpmMKoDlNCB1ok7zHCw==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || >=20.0.0
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.19.10
-      postcss: 8.4.32
-      rollup: 4.9.1
-      sass: 1.69.5
-    optionalDependencies:
-      fsevents: 2.3.3
-    dev: true
-
   /vue-eslint-parser@9.3.2(eslint@8.56.0):
     resolution: {integrity: sha512-q7tWyCVaV9f8iQyIA5Mkj/S6AoJ9KBN8IeUSf3XEmBrOtxOZnfTg5s4KClbZBCK3GtnT/+RyCLZyDHuZwTuBjg==}
     engines: {node: ^14.17.0 || >=16.0.0}
@@ -2858,10 +2830,10 @@ packages:
       vue: ^3.0.0
     dependencies:
       is-plain-object: 3.0.1
-      vue: 3.3.13
+      vue: 3.3.13(typescript@5.3.3)
     dev: true
 
-  /vue@3.3.13:
+  /vue@3.3.13(typescript@5.3.3):
     resolution: {integrity: sha512-LDnUpQvDgsfc0u/YgtAgTMXJlJQqjkxW1PVcOnJA5cshPleULDjHi7U45pl2VJYazSSvLH8UKcid/kzH8I0a0Q==}
     peerDependencies:
       typescript: '*'
@@ -2874,6 +2846,7 @@ packages:
       '@vue/runtime-dom': 3.3.13
       '@vue/server-renderer': 3.3.13(vue@3.3.13)
       '@vue/shared': 3.3.13
+      typescript: 5.3.3
     dev: true
 
   /warning@4.0.3:

@@ -10,5 +10,5 @@ export const formColConfig = {
   md: 12,
   lg: 12,
   xl: 8,
-  xxl: 8,
+  xxl: 6,
 };
