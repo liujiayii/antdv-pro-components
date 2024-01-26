@@ -1,6 +1,6 @@
 {
   "name": "@antd-vc/pro-table",
-  "version": "0.0.1-alpha.6",
+  "version": "0.0.1-alpha.7",
   "type": "module",
   "scripts": {
     "build": "vite build && tsc --rootDir src --declarationDir es"
