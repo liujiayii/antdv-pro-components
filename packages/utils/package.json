@@ -1,8 +1,11 @@
 {
   "name": "@antd-vc/pro-utils",
   "version": "0.0.1-alpha.1",
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
+  "module": "./es/index.ts",
+  "types": "./es/index.d.ts",
+  "scripts": {
+    "build": "vite build && tsc --rootDir src --declarationDir es"
+  },
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
     "ant-design-vue": "4.0.8",

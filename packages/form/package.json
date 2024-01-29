@@ -1,8 +1,8 @@
 {
   "name": "@antd-vc/pro-form",
   "version": "0.0.1-alpha.1",
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
+  "module": "./es/index.ts",
+  "types": "./es/index.d.ts",
   "devDependencies": {
     "@antd-vc/pro-utils": "*",
     "@ant-design/icons-vue": "^7.0.1",
