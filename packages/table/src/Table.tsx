@@ -54,32 +54,23 @@ export default defineComponent({
   name: "ProTable",
   props: ProTableProps,
   setup(props) {
-    //console.log(props);
-
     const tableData = ref<any[]>([]);
     const loading = ref(false);
     const pagination = ref<TablePaginationConfig>(cloneDeep(pageConfig));
     const tableSize = ref<SizeType[]>(["middle"]);
+    const formState = reactive<Record<any, any>>({});
     provide("tableSize", tableSize);
-    //过滤搜索字段
-    //const searchFields = {};
-    // console.log('props.columns',props.columns);
 
-    //console.log(searchArr);
-    //console.log(searchArr);
-    //searchArr.forEach((item) => (searchFields[item.dataIndex] = ""));
-    // console.log(searchFields)
-    const modelRef = reactive<Record<any, any>>({});
-    const fetch = (
+    const useFetchData = (
       params: { current?: number; pageSize?: number } = { current: 1, pageSize: 10 },
     ) => {
       console.log("fetch", params);
-      //console.log(modelRef);
+      //console.log(formState);
       if (!props.request) {
         return;
       }
       loading.value = true;
-      let allObj = { ...params, ...modelRef, ...props.params };
+      let allObj = { ...params, ...formState, ...props.params };
       if (props.beforeSearchSubmit) {
         allObj = props.beforeSearchSubmit(allObj);
       }
@@ -87,14 +78,12 @@ export default defineComponent({
       props.request(allObj).then((res: any) => {
         loading.value = false;
         if (res?.code === 20000) {
-          // console.log("res",{ ...params });
-          const pageTemp = { ...pagination.value };
-
-          pageTemp.total = res?.data?.total;
-          pageTemp.current = params.current;
           tableData.value = res?.data?.records || [];
-
-          pagination.value = pageTemp;
+          pagination.value = {
+            ...pagination.value,
+            total: res?.data?.total,
+            current: params.current,
+          };
           if (isFunction(props.onLoad)) {
             props.onLoad(res);
           }
@@ -103,19 +92,25 @@ export default defineComponent({
     };
 
     const handleTableChange = async (page = pagination.value) => {
-      const pageTemp = { ...pagination.value };
-      pageTemp.current = page.current;
-      pageTemp.pageSize = page.pageSize;
-      pagination.value = pageTemp;
-      console.log(page);
-      fetch({
+      pagination.value = {
+        ...pagination.value,
+        current: page.current,
+        pageSize: page.pageSize,
+      };
+      useFetchData({
         current: page.current,
         pageSize: page.pageSize,
       });
     };
 
-    const actionRef: ActionType = {
+    const action: ActionType = {
       reload: () => handleTableChange(),
+      setPageInfo(page) {
+        pagination.value = {
+          ...pagination.value,
+          ...page,
+        };
+      },
     };
 
     if (props.formExtraRef) {
@@ -130,24 +125,35 @@ export default defineComponent({
           if (values.pageSize) {
             pagination.value.pageSize = +values.pageSize;
           }
-          Object.assign(modelRef, omit(values, ["current", "pageSize"]));
+          Object.assign(formState, omit(values, ["current", "pageSize"]));
         },
       });
     }
 
     onMounted(() => {
       if (props.actionRef) {
-        props?.actionRef(actionRef);
+        props?.actionRef(action);
       }
-      fetch({ current: pagination.value.current, pageSize: pagination.value.pageSize });
+      useFetchData({ current: pagination.value.current, pageSize: pagination.value.pageSize });
     });
 
     return () => (
       <>
-        {props.search && <QueryFilter columns={props.columns} />}
+        {props.search && (
+          <QueryFilter
+            columns={props.columns}
+            lookUpCondition={props.lookUpCondition}
+            search={props.search}
+            textSearch={props.textSearch}
+            useFetchData={useFetchData}
+            tableAction={action}
+            loading={loading.value}
+            v-model:formState={formState}
+          />
+        )}
         <Card bordered={false} bodyStyle={{ padding: "0 24px" }}>
           <ToolBar
-            actionRef={actionRef}
+            actionRef={action}
             title={props.title}
             // columns={formatTableColumns(props.columns as any) as any}
           />

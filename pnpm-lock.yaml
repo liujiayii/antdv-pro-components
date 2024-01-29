@@ -17,6 +17,9 @@ importers:
       '@antd-vc/pro-table':
         specifier: workspace:*
         version: link:packages/table
+      '@antd-vc/pro-utils':
+        specifier: workspace:*
+        version: link:packages/utils
       '@rushstack/eslint-patch':
         specifier: ^1.6.1
         version: 1.6.1
@@ -100,6 +103,9 @@ importers:
       '@ant-design/icons-vue':
         specifier: ^7.0.1
         version: 7.0.1(vue@3.3.13)
+      '@antd-vc/pro-utils':
+        specifier: '*'
+        version: link:../utils
       ant-design-vue:
         specifier: 4.0.8
         version: 4.0.8(vue@3.3.13)
@@ -139,6 +145,30 @@ importers:
       query-string:
         specifier: ^8.1.0
         version: 8.1.0
+      vue:
+        specifier: ^3.3.13
+        version: 3.3.13(typescript@5.3.3)
+
+  packages/utils:
+    devDependencies:
+      '@ant-design/icons-vue':
+        specifier: ^7.0.1
+        version: 7.0.1(vue@3.3.13)
+      ant-design-vue:
+        specifier: 4.0.8
+        version: 4.0.8(vue@3.3.13)
+      classnames:
+        specifier: ^2.5.0
+        version: 2.5.0
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.10
+      query-string:
+        specifier: ^8.1.0
+        version: 8.1.0
+      sass:
+        specifier: ^1.69.5
+        version: 1.69.5
       vue:
         specifier: ^3.3.13
         version: 3.3.13(typescript@5.3.3)

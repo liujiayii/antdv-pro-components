@@ -20,7 +20,9 @@
     "jsx": "preserve",
     "paths": {
       "@antdv/pro-table": ["./packages/table/src/index.ts"],
-      "@antdv/pro-form": ["./packages/form/src/index.ts"]
+      "@antdv/pro-form": ["./packages/form/src/index.ts"],
+      "@antdv/pro-card": ["./packages/card/src/index.ts"],
+      "@antdv/pro-utils": ["./packages/utils/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
