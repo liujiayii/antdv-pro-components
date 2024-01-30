@@ -8,21 +8,20 @@
     "typings.d.ts"
   ],
   "compilerOptions": {
-    "paths": {
-      "@antd-vc/pro-table": ["./packages/table/src/index.ts"],
-      "@antd-vc/pro-form": ["./packages/form/src/index.ts"],
-      "@antd-vc/pro-card": ["./packages/card/src/index.ts"],
-      "@antd-vc/pro-utils": ["./packages/utils/src/index.ts"]
-    },
     "composite": true,
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"],
     "baseUrl": "./",
-    "rootDirs": ["./packages/table", "./packages/form"],
     "allowJs": true,
     "jsx": "preserve",
+    "paths": {
+      "@antd-vc/pro-table": ["./packages/table/src/index.ts"],
+      "@antd-vc/pro-form": ["./packages/form/src/index.ts"],
+      "@antd-vc/pro-card": ["./packages/card/src/index.ts"],
+      "@antd-vc/pro-utils": ["./packages/utils/src/index.ts"]
+    },
     "noEmit": false,
     "declaration": true,
     "emitDeclarationOnly": true,
