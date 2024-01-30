@@ -2,12 +2,19 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 import pkg from "./package.json";
 const external = Object.keys(pkg.devDependencies);
 
 export default defineConfig({
-  plugins: [vue(), vueJsx()],
+  plugins: [
+    vue(),
+    vueJsx(),
+    dts({
+      entryRoot: resolve(__dirname, "src"),
+    }),
+  ],
   build: {
     outDir: "es",
     lib: {
