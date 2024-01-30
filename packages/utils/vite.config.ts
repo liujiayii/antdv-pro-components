@@ -3,6 +3,9 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
+import pkg from "./package.json";
+const external = Object.keys(pkg.devDependencies);
+
 export default defineConfig({
   plugins: [vue(), vueJsx()],
   build: {
@@ -17,7 +20,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ["vue", "lodash-es", "@ant-design/icons-vue", "ant-design-vue", "dayjs"],
+      external: external,
       output: {
         preserveModules: true,
       },

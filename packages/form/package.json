@@ -1,20 +1,22 @@
 {
   "name": "@antd-vc/pro-form",
   "version": "0.0.1-alpha.1",
-  "module": "./es/index.ts",
-  "types": "./es/index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "vite build && tsc --rootDir src --declarationDir es"
   },
   "files": [
     "es"
   ],
+  "module": "./es/index.js",
+  "types": "./es/index.d.ts",
   "devDependencies": {
-    "@antd-vc/pro-utils": "*",
     "@ant-design/icons-vue": "^7.0.1",
+    "@antd-vc/pro-utils": "*",
     "ant-design-vue": "4.0.8",
     "classnames": "^2.5.0",
     "dayjs": "^1.11.10",
+    "lodash-es": "^4.17.21",
     "query-string": "^8.1.0",
     "sass": "^1.69.5",
     "vue": "^3.3.13"

@@ -3,7 +3,7 @@ import type { ActionType, IValueEnum } from "@antd-vc/pro-table";
 import { type ProColumns } from "@antd-vc/pro-table";
 import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
 import type { FormInstance } from "ant-design-vue/es/form";
-import { computed, defineComponent, ref, type PropType } from "vue";
+import { computed, defineComponent, reactive, ref, type PropType } from "vue";
 import { useWindowWidth } from "./hooks";
 import { formColConfig, getSpanConfig } from "./utils";
 
@@ -43,7 +43,7 @@ export default defineComponent({
   setup(props) {
     const isCollapsed = ref(true);
     const formRef = ref<FormInstance>();
-    const modelRef = props.formState;
+    const modelRef = props.formState || reactive<Record<string, any>>({});
     const width = useWindowWidth();
     const searchArr = computed<ProColumns[]>(() => {
       return (

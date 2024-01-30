@@ -1,0 +1,25 @@
+{
+  "extends": ["@tsconfig/node20/tsconfig.json", "@vue/tsconfig/tsconfig.dom.json"],
+  "include": ["**/vitest.config.*", "typings.d.ts"],
+  "exclude": ["**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node"],
+    "baseUrl": ".",
+    "allowJs": true,
+    "jsx": "preserve",
+    "paths": {
+      "@antdv/pro-table": ["../table/src/index.ts"],
+      "@antdv/pro-form": ["../form/src/index.ts"],
+      "@antdv/pro-card": ["../card/src/index.ts"],
+      "@antdv/pro-utils": ["../utils/src/index.ts"]
+    },
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true
+  }
+}

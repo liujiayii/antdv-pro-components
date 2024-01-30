@@ -115,6 +115,9 @@ importers:
       dayjs:
         specifier: ^1.11.10
         version: 1.11.10
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       query-string:
         specifier: ^8.1.0
         version: 8.1.0
@@ -142,6 +145,9 @@ importers:
       dayjs:
         specifier: ^1.11.10
         version: 1.11.10
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       query-string:
         specifier: ^8.1.0
         version: 8.1.0

@@ -8,14 +8,15 @@
   "files": [
     "es"
   ],
-  "module": "./es/index.ts",
+  "module": "./es/index.js",
   "types": "./es/index.d.ts",
   "devDependencies": {
-    "@antd-vc/pro-form": "*",
     "@ant-design/icons-vue": "^7.0.1",
+    "@antd-vc/pro-form": "*",
     "ant-design-vue": "4.0.8",
     "classnames": "^2.4.0",
     "dayjs": "^1.11.10",
+    "lodash-es": "^4.17.21",
     "query-string": "^8.1.0",
     "vue": "^3.3.13"
   }
