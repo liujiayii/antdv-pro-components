@@ -102,13 +102,14 @@ importers:
         version: 1.69.5
 
   packages/form:
+    dependencies:
+      '@antd-vc/pro-utils':
+        specifier: latest
+        version: link:../utils
     devDependencies:
       '@ant-design/icons-vue':
         specifier: ^7.0.1
         version: 7.0.1(vue@3.3.13)
-      '@antd-vc/pro-utils':
-        specifier: '*'
-        version: link:../utils
       ant-design-vue:
         specifier: ^4.1.0
         version: 4.1.2(vue@3.3.13)
@@ -132,13 +133,14 @@ importers:
         version: 3.3.13(typescript@5.3.3)
 
   packages/table:
+    dependencies:
+      '@antd-vc/pro-form':
+        specifier: latest
+        version: link:../form
     devDependencies:
       '@ant-design/icons-vue':
         specifier: ^7.0.1
         version: 7.0.1(vue@3.3.13)
-      '@antd-vc/pro-form':
-        specifier: '*'
-        version: link:../form
       ant-design-vue:
         specifier: ^4.1.0
         version: 4.1.2(vue@3.3.13)

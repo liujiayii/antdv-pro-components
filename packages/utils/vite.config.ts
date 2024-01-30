@@ -5,7 +5,8 @@ import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 import pkg from "./package.json";
-const external = Object.keys(pkg.devDependencies);
+const external: Array<string | RegExp> = Object.keys(pkg.devDependencies);
+external.push(/@antd-vc\//);
 
 export default defineConfig({
   plugins: [
