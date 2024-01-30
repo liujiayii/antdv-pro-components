@@ -1,6 +1,6 @@
 {
   "name": "@antd-vc/pro-form",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1-alpha.2",
   "type": "module",
   "scripts": {
     "build": "vite build"
@@ -13,7 +13,7 @@
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
     "@antd-vc/pro-utils": "*",
-    "ant-design-vue": "4.0.8",
+    "ant-design-vue": "^4.1.0",
     "classnames": "^2.5.0",
     "dayjs": "^1.11.10",
     "lodash-es": "^4.17.21",

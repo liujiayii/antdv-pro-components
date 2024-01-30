@@ -3,7 +3,8 @@ import type { ActionType, IValueEnum } from "@antd-vc/pro-table";
 import { type ProColumns } from "@antd-vc/pro-table";
 import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
 import type { FormInstance } from "ant-design-vue/es/form";
-import { computed, defineComponent, reactive, ref, type PropType } from "vue";
+import { cloneDeep } from "lodash-es";
+import { computed, defineComponent, ref, type PropType, type Ref } from "vue";
 import { useWindowWidth } from "./hooks";
 import { formColConfig, getSpanConfig } from "./utils";
 
@@ -37,17 +38,19 @@ export default defineComponent({
       default: false,
     },
     formState: {
-      type: Object,
+      type: Object as PropType<Ref<Record<string, any>>>,
+      required: true,
     },
   },
   setup(props) {
     const isCollapsed = ref(true);
     const formRef = ref<FormInstance>();
-    const modelRef = props.formState || reactive<Record<string, any>>({});
+    const formState = props.formState || ref<Record<string, any>>({});
     const width = useWindowWidth();
     const searchArr = computed<ProColumns[]>(() => {
       return (
-        (props.columns as ProColumns[])?.filter((item) => {
+        // 深拷贝一下是为了防止修改props，以后再解决复用问题；
+        (cloneDeep(props.columns) as ProColumns[])?.filter((item) => {
           const result = item.search !== false && item.dataIndex;
           if (result) {
             const colSize = item?.colSize ?? 1;
@@ -94,20 +97,20 @@ export default defineComponent({
         style={{ marginBottom: "16px" }}
         bodyStyle={{ padding: "16px 24px 0" }}
       >
-        <Form name="search" layout={spanSize.value.layout} model={modelRef} ref={formRef}>
+        <Form name="search" layout={spanSize.value.layout} model={formState.value} ref={formRef}>
           <Row gutter={24} justify="start">
             {shownSearchArr.value.map((item: any) => (
               <Col span={item.colSpan} key={item.dataIndex}>
                 <Form.Item label={item.title} name={item.dataIndex as string}>
                   {item.renderFormItem ? (
                     item.renderFormItem(undefined, {
-                      modelRef: modelRef, //透传表单对象和字段，使父组件可以双向绑定
+                      modelRef: formState.value, //透传表单对象和字段，使父组件可以双向绑定
                       fields: item.dataIndex,
                       placeholder: `请选择${item.title}`,
                     })
                   ) : typeof item.search === "object" && item.search?.options ? (
                     <Select
-                      v-model:value={modelRef[item.dataIndex]}
+                      v-model:value={formState.value[item.dataIndex]}
                       options={item.search.options.value}
                       showSearch={true}
                       placeholder={`请选择${item.title}`}
@@ -115,7 +118,7 @@ export default defineComponent({
                     />
                   ) : item.valueEnum ? (
                     <Select
-                      v-model:value={modelRef[item.dataIndex]}
+                      v-model:value={formState.value[item.dataIndex]}
                       options={Object.keys(item.valueEnum).map((i) => ({
                         value: i,
                         label:
@@ -128,13 +131,13 @@ export default defineComponent({
                     />
                   ) : item.valueType === "dateTime" ? (
                     <DatePicker
-                      v-model:value={modelRef[item.dataIndex]}
+                      v-model:value={formState.value[item.dataIndex]}
                       placeholder={`请输入${item.title}`}
                       allowClear
                     />
                   ) : (
                     <Input
-                      v-model:value={modelRef[item.dataIndex]}
+                      v-model:value={formState.value[item.dataIndex]}
                       placeholder={`请输入${item.title}`}
                       allowClear
                     />
@@ -149,8 +152,8 @@ export default defineComponent({
                     <Button
                       onClick={() => {
                         formRef.value?.resetFields();
-                        Object.keys(modelRef).forEach((item) => {
-                          modelRef[item] = undefined;
+                        Object.keys(formState.value).forEach((item) => {
+                          formState.value[item] = undefined;
                         });
                         props.useFetchData?.();
                       }}
@@ -163,7 +166,7 @@ export default defineComponent({
                         // 查询的前置条件
                         if (props.lookUpCondition) {
                           // 把modelRef传出去
-                          props.lookUpCondition(modelRef).then((res: boolean) => {
+                          props.lookUpCondition(formState.value).then((res: boolean) => {
                             console.log("查询条件res", res);
                             // 成立才执行
                             if (res) {
@@ -180,7 +183,7 @@ export default defineComponent({
                       {props.textSearch ? props.textSearch : "查询"}
                     </Button>
                     {typeof props.search === "object" &&
-                      props.search?.optionRender(undefined, { modelRef })}
+                      props.search?.optionRender(undefined, { modelRef: formState.value })}
                   </Space>
                   <a
                     onClick={() => {

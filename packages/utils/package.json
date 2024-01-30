@@ -12,7 +12,7 @@
   "types": "./es/index.d.ts",
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
-    "ant-design-vue": "4.0.8",
+    "ant-design-vue": "^4.1.0",
     "classnames": "^2.5.0",
     "dayjs": "^1.11.10",
     "query-string": "^8.1.0",
