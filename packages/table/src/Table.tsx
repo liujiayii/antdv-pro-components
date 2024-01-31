@@ -1,28 +1,13 @@
-import { DownOutlined } from "@ant-design/icons-vue";
-import {
-  Badge,
-  Button,
-  Card,
-  Col,
-  DatePicker,
-  Flex,
-  Form,
-  Input,
-  Row,
-  Select,
-  Space,
-  Table,
-} from "ant-design-vue";
+import { QueryFilter } from "@antd-vc/pro-form";
+import { Badge, Card, Table } from "ant-design-vue";
 import type { SizeType } from "ant-design-vue/es/config-provider";
-import type { FormInstance } from "ant-design-vue/es/form";
 import type { TablePaginationConfig } from "ant-design-vue/es/table";
 import { cloneDeep, isFunction, omit } from "lodash-es";
-import { computed, defineComponent, onMounted, provide, reactive, ref } from "vue";
+import { defineComponent, onMounted, provide, ref } from "vue";
 import ToolBar from "./components/ToolBar";
 import type { ActionType, IValueEnum, ProColumns } from "./typing";
 import { ProTableProps } from "./typing";
 import { pageConfig, valueType } from "./utils";
-import { formColConfig, showSearch } from "./utils/utils";
 
 //值的枚举
 const formatValueEnum = (valueEnum: IValueEnum) => {
@@ -69,41 +54,23 @@ export default defineComponent({
   name: "ProTable",
   props: ProTableProps,
   setup(props) {
-    //console.log(props);
-
     const tableData = ref<any[]>([]);
     const loading = ref(false);
     const pagination = ref<TablePaginationConfig>(cloneDeep(pageConfig));
     const tableSize = ref<SizeType[]>(["middle"]);
-    const isCollapsed = ref(true);
+    const formState = ref<Record<any, any>>({});
     provide("tableSize", tableSize);
-    //过滤搜索字段
-    //const searchFields = {};
-    // console.log('props.columns',props.columns);
-    const searchArr = computed<ProColumns[]>(() => {
-      return (
-        (props.columns as ProColumns[])?.filter(
-          (item) => item.search !== false && item.dataIndex,
-        ) || []
-      );
-    });
 
-    //console.log(searchArr);
-    //console.log(searchArr);
-    //searchArr.forEach((item) => (searchFields[item.dataIndex] = ""));
-    // console.log(searchFields)
-    const modelRef = reactive<Record<any, any>>({});
-    const formRef = ref<FormInstance>();
-    const fetch = (
+    const useFetchData = (
       params: { current?: number; pageSize?: number } = { current: 1, pageSize: 10 },
     ) => {
       console.log("fetch", params);
-      //console.log(modelRef);
+      //console.log(formState);
       if (!props.request) {
         return;
       }
       loading.value = true;
-      let allObj = { ...params, ...modelRef, ...props.params };
+      let allObj = { ...params, ...formState.value, ...props.params };
       if (props.beforeSearchSubmit) {
         allObj = props.beforeSearchSubmit(allObj);
       }
@@ -111,14 +78,12 @@ export default defineComponent({
       props.request(allObj).then((res: any) => {
         loading.value = false;
         if (res?.code === 20000) {
-          // console.log("res",{ ...params });
-          const pageTemp = { ...pagination.value };
-
-          pageTemp.total = res?.data?.total;
-          pageTemp.current = params.current;
           tableData.value = res?.data?.records || [];
-
-          pagination.value = pageTemp;
+          pagination.value = {
+            ...pagination.value,
+            total: res?.data?.total,
+            current: params.current,
+          };
           if (isFunction(props.onLoad)) {
             props.onLoad(res);
           }
@@ -127,23 +92,25 @@ export default defineComponent({
     };
 
     const handleTableChange = async (page = pagination.value) => {
-      const pageTemp = { ...pagination.value };
-      pageTemp.current = page.current;
-      pageTemp.pageSize = page.pageSize;
-      pagination.value = pageTemp;
-      console.log(page);
-      fetch({
+      pagination.value = {
+        ...pagination.value,
+        current: page.current,
+        pageSize: page.pageSize,
+      };
+      useFetchData({
         current: page.current,
         pageSize: page.pageSize,
       });
     };
-    const handleSubmit = () => {
-      // console.log('查询')
 
-      fetch({ current: 1, pageSize: pagination.value.pageSize });
-    };
-    const actionRef: ActionType = {
+    const action: ActionType = {
       reload: () => handleTableChange(),
+      setPageInfo(page) {
+        pagination.value = {
+          ...pagination.value,
+          ...page,
+        };
+      },
     };
 
     if (props.formExtraRef) {
@@ -158,147 +125,35 @@ export default defineComponent({
           if (values.pageSize) {
             pagination.value.pageSize = +values.pageSize;
           }
-          Object.assign(modelRef, omit(values, ["current", "pageSize"]));
+          Object.assign(formState.value, omit(values, ["current", "pageSize"]));
         },
       });
     }
 
     onMounted(() => {
       if (props.actionRef) {
-        props?.actionRef(actionRef);
+        props?.actionRef(action);
       }
-      fetch({ current: pagination.value.current, pageSize: pagination.value.pageSize });
+      useFetchData({ current: pagination.value.current, pageSize: pagination.value.pageSize });
     });
 
     return () => (
       <>
-        {props.search && !!searchArr.value.length && (
-          <Card
-            bordered={false}
-            style={{ marginBottom: "16px" }}
-            bodyStyle={{ padding: "16px 24px 0" }}
-          >
-            <Form name="search" layout="vertical" model={modelRef} ref={formRef}>
-              <Flex wrap="wrap" justify="space-between" gap="small">
-                <Row gutter={16} style={{ flex: "1" }}>
-                  {(isCollapsed.value ? searchArr.value.slice(0, 3) : searchArr.value).map(
-                    (item: any) => (
-                      <Col {...formColConfig} key="111">
-                        <Form.Item label={item.title} name={item.dataIndex as string}>
-                          {item.renderFormItem ? (
-                            item.renderFormItem(undefined, {
-                              modelRef: modelRef, //透传表单对象和字段，使父组件可以双向绑定
-                              fields: item.dataIndex,
-                              placeholder: `请选择${item.title}`,
-                            })
-                          ) : typeof item.search === "object" && item.search?.options ? (
-                            <Select
-                              v-model:value={modelRef[item.dataIndex]}
-                              options={item.search.options.value}
-                              {...showSearch}
-                              placeholder={`请选择${item.title}`}
-                              allowClear
-                            />
-                          ) : item.valueEnum ? (
-                            <Select
-                              v-model:value={modelRef[item.dataIndex]}
-                              options={Object.keys(item.valueEnum).map((i) => ({
-                                value: i,
-                                label:
-                                  typeof (item.valueEnum as IValueEnum)[i] === "object"
-                                    ? ((item.valueEnum as any)[i]?.text as unknown as string)
-                                    : (item.valueEnum as IValueEnum)[i],
-                              }))}
-                              placeholder={`请选择${item.title}`}
-                              allowClear
-                            />
-                          ) : item.valueType === "dateTime" ? (
-                            <DatePicker
-                              v-model:value={modelRef[item.dataIndex]}
-                              placeholder={`请输入${item.title}`}
-                              allowClear
-                            />
-                          ) : (
-                            <Input
-                              v-model:value={modelRef[item.dataIndex]}
-                              placeholder={`请输入${item.title}`}
-                              allowClear
-                            />
-                          )}
-                        </Form.Item>
-                      </Col>
-                    ),
-                  )}
-                </Row>
-                <Row justify="end">
-                  <Flex vertical>
-                    <Col style={{ marginBottom: "5px" }}>
-                      <Button
-                        type="link"
-                        style={{ height: "23px", paddingTop: "0", paddingLeft: "0" }}
-                      >
-                        {searchArr.value.length > 3 ? (
-                          <div
-                            onClick={() => {
-                              isCollapsed.value = !isCollapsed.value;
-                            }}
-                          >
-                            {isCollapsed.value ? "展开" : "收起"}
-                            <DownOutlined style={{ marginLeft: "5px" }} />
-                          </div>
-                        ) : null}
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Form.Item style={{ marginBottom: 0 }}>
-                        <Space>
-                          <Button
-                            onClick={() => {
-                              formRef.value?.resetFields();
-                              Object.keys(modelRef).forEach((item) => {
-                                modelRef[item] = undefined;
-                              });
-                              fetch();
-                            }}
-                          >
-                            重置
-                          </Button>
-                          <Button
-                            type="primary"
-                            onClick={() => {
-                              // 查询的前置条件
-                              if (props.lookUpCondition) {
-                                // 把modelRef传出去
-                                props.lookUpCondition(modelRef).then((res: boolean) => {
-                                  console.log("查询条件res", res);
-                                  // 成立才执行
-                                  if (res) {
-                                    handleSubmit();
-                                  }
-                                });
-                              } else {
-                                handleSubmit();
-                              }
-                            }}
-                            loading={loading.value}
-                          >
-                            {/* 如果传过来这个值，就叫这个名字。如果没有就叫查询 */}
-                            {props.textSearch ? props.textSearch : "查询"}
-                          </Button>
-                          {typeof props.search === "object" &&
-                            props.search?.optionRender(undefined, { modelRef })}
-                        </Space>
-                      </Form.Item>
-                    </Col>
-                  </Flex>
-                </Row>
-              </Flex>
-            </Form>
-          </Card>
+        {props.search && (
+          <QueryFilter
+            columns={props.columns}
+            lookUpCondition={props.lookUpCondition}
+            search={props.search}
+            textSearch={props.textSearch}
+            useFetchData={useFetchData}
+            tableAction={action}
+            loading={loading.value}
+            formState={formState}
+          />
         )}
         <Card bordered={false} bodyStyle={{ padding: "0 24px" }}>
           <ToolBar
-            actionRef={actionRef}
+            actionRef={action}
             title={props.title}
             // columns={formatTableColumns(props.columns as any) as any}
           />

@@ -1,20 +1,24 @@
 {
   "name": "@antd-vc/pro-table",
-  "version": "0.0.1-alpha.7",
+  "version": "0.0.1-alpha.10",
   "type": "module",
   "scripts": {
-    "build": "vite build && tsc --rootDir src --declarationDir es"
+    "build": "vite build"
   },
   "files": [
     "es"
   ],
   "module": "./es/index.js",
   "types": "./es/index.d.ts",
+  "dependencies": {
+    "@antd-vc/pro-form": "latest"
+  },
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
-    "ant-design-vue": "4.0.8",
+    "ant-design-vue": "^4.1.0",
     "classnames": "^2.4.0",
     "dayjs": "^1.11.10",
+    "lodash-es": "^4.17.21",
     "query-string": "^8.1.0",
     "vue": "^3.3.13"
   }

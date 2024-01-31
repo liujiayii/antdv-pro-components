@@ -19,16 +19,14 @@
 
 ## 友情链接
 
-- [Element Plus](https://github.com/element-plus/element-plus)
+- [antd-vue](https://github.com/VueComponent/ant-design-vue)
 - [antd](https://github.com/ant-design/ant-design)
-- [dumi](https://github.com/umijs/dumi)
+- [vite](https://github.com/vitejs/vite)
 
 ## 📦 安装
 
 ```bash
 pnpm i @antd-vc/pro-table
-npm install --save  @antd-vc/pro-table
-yarn add @antd-vc/pro-table
 ```
 
 ## 🔨 示例

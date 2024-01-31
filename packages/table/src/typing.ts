@@ -22,6 +22,7 @@ export type ProColumns = {
   valueEnum?: IValueEnum;
   valueType?: IValueType;
   hideInTable?: boolean;
+  colSize?: number;
 } & ColumnType;
 
 /** ProTable 的类型定义 继承自 antd 的 Table */
@@ -98,5 +99,5 @@ export type ProCoreActionType = {
 /** 操作类型 */
 export type ActionType = ProCoreActionType & {
   // fullScreen?: () => void;
-  // setPageInfo?: (page: Partial<PageInfo>) => void;
+  setPageInfo?: (page: Partial<PageInfo>) => void;
 };
