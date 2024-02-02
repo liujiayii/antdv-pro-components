@@ -9,6 +9,9 @@ const external: Array<string | RegExp> = Object.keys(pkg.devDependencies);
 external.push(/@antd-vc\//);
 
 export default defineConfig({
+  esbuild: {
+    drop: ["console", "debugger"],
+  },
   plugins: [
     vue(),
     vueJsx(),
