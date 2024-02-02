@@ -6,7 +6,7 @@ const defaultWidth = isBrowser() ? document?.body?.clientWidth : 1024;
 const width = ref<any>(defaultWidth);
 const onWindowResize = debounce(() => {
   width.value = document?.body?.clientWidth;
-}, 1000);
+}, 300);
 
 export const useWindowWidth = () => {
   onMounted(() => {
