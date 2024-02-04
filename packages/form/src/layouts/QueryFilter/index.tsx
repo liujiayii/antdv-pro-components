@@ -48,17 +48,33 @@ export default defineComponent({
     const formRef = ref<FormInstance>();
     const formState = props.formState || ref<Record<string, any>>({});
     const width = useWindowWidth();
-    const labelWidth = ref("80" || "auto");
+    const labelWidth = ref("80");
     const searchArr = computed<ProColumns[]>(() => {
       return (
         // 深拷贝一下是为了防止修改props，以后再解决复用问题；
-        (cloneDeep(props.columns) as ProColumns[])?.filter((item) => {
+        (cloneDeep(props.columns) as ProColumns[])?.filter((item: any) => {
           const result = item.search !== false && item.dataIndex;
           if (result) {
             const colSize = item?.colSize ?? 1;
             const colSpan = Math.min(spanSize.value.span * (colSize || 1), 24);
             item.colSpan = colSpan;
+            item.formItemWidth = {
+              labelCol: {
+                flex: `0 0 ${item.labelWidth ? item.labelWidth : labelWidth.value}px`,
+              },
+              wrapperCol: {
+                style: {
+                  maxWidth: `calc(100% - ${
+                    item.labelWidth ? item.labelWidth : labelWidth.value
+                  }px)`,
+                },
+              },
+              style: {
+                flexWrap: "nowrap",
+              },
+            };
           }
+
           return result;
         }) || []
       );
@@ -85,26 +101,6 @@ export default defineComponent({
       return 24 - offsetSpan;
     });
 
-    /** 计算最大宽度防止溢出换行 */
-    const formItemFixStyle: any = computed(() => {
-      if (labelWidth.value && spanSize.value.layout !== "vertical" && labelWidth.value !== "auto") {
-        return {
-          labelCol: {
-            flex: `0 0 ${labelWidth.value}px`,
-          },
-          wrapperCol: {
-            style: {
-              maxWidth: `calc(100% - ${labelWidth.value}px)`,
-            },
-          },
-          style: {
-            flexWrap: "nowrap",
-          },
-        };
-      }
-      return null;
-    });
-
     const handleSubmit = () => {
       // console.log('查询')
       props.tableAction?.setPageInfo?.({ current: 1 });
@@ -126,7 +122,7 @@ export default defineComponent({
                 <Form.Item
                   label={item.title}
                   name={item.dataIndex as string}
-                  {...formItemFixStyle.value}
+                  {...item.formItemWidth}
                 >
                   {item.renderFormItem ? (
                     item.renderFormItem(undefined, {
@@ -175,7 +171,9 @@ export default defineComponent({
               <Form.Item
                 label="&nbsp;"
                 colon={false}
-                // {...formItemFixStyle.value}
+                labelCol={{
+                  flex: `0 0 auto`,
+                }}
               >
                 <Space size={16}>
                   <Space>
