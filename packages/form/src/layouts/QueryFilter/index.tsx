@@ -77,7 +77,7 @@ export default defineComponent({
       const currentSpan = shownSearchArr.value.reduce((prev, cur) => {
         return prev + (cur.colSpan || 0);
       }, 0);
-      console.log("offset", currentSpan % 24, spanSize.value);
+      // console.log("offset", currentSpan % 24, spanSize.value);
       const offsetSpan = (currentSpan % 24) + spanSize.value.span;
       if (offsetSpan > 24) {
         return 24 - spanSize.value.span;
@@ -182,7 +182,6 @@ export default defineComponent({
                     <Button
                       onClick={() => {
                         formRef.value?.resetFields();
-                        console.log(formState.value, "formState.value");
                         Object.keys(formState).forEach((item) => {
                           formState[item] = undefined;
                         });
@@ -198,7 +197,7 @@ export default defineComponent({
                         if (props.lookUpCondition) {
                           // 把modelRef传出去
                           props.lookUpCondition(formState).then((res: boolean) => {
-                            console.log("查询条件res", res);
+                            // console.log("查询条件res", res);
                             // 成立才执行
                             if (res) {
                               handleSubmit();

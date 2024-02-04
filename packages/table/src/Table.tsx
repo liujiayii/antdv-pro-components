@@ -64,7 +64,7 @@ export default defineComponent({
     const useFetchData = (
       params: { current?: number; pageSize?: number } = { current: 1, pageSize: 10 },
     ) => {
-      console.log("fetch", params);
+      // console.log("fetch", params);
       //console.log(formState);
       if (!props.request) {
         return;
@@ -74,7 +74,7 @@ export default defineComponent({
       if (props.beforeSearchSubmit) {
         allObj = props.beforeSearchSubmit(allObj);
       }
-      console.log(allObj);
+      // console.log(allObj);
       props.request(allObj).then((res: any) => {
         loading.value = false;
         if (res?.code === 20000) {
@@ -114,10 +114,10 @@ export default defineComponent({
     };
 
     if (props.formExtraRef) {
-      console.log("init formExtraRef");
+      // console.log("init formExtraRef");
       props?.formExtraRef({
         setFieldsValue: (values: any) => {
-          console.log(values);
+          // console.log(values);
           // 分页参数，后面需要改成pros.pagination传过来
           if (values.current) {
             pagination.value.current = +values.current;
