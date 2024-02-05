@@ -60,13 +60,11 @@ export default defineComponent({
             item.colSpan = colSpan;
             item.formItemWidth = {
               labelCol: {
-                flex: `0 0 ${item.labelWidth ? item.labelWidth : labelWidth.value}px`,
+                flex: `0 0 ${item.labelWidth || labelWidth.value}px`,
               },
               wrapperCol: {
                 style: {
-                  maxWidth: `calc(100% - ${
-                    item.labelWidth ? item.labelWidth : labelWidth.value
-                  }px)`,
+                  maxWidth: `calc(100% - ${item.labelWidth || labelWidth.value}px)`,
                 },
               },
               style: {
