@@ -129,7 +129,7 @@ export default defineComponent({
         },
       });
     }
-    /** 默认聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
+    /** 聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
     onMounted(() => {
       // 手动模式和 request 为空都不生效
       if (!props.request || !props.revalidateOnFocus) return;
