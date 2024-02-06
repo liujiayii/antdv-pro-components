@@ -8,13 +8,13 @@ export type IValueEnum =
 
 export type IValueType = "dateTime" | "date" | "time" | "money" | "option";
 
-export type ProColumns = {
+export type ProColumns<T> = {
   search?: boolean | { options: { value: any[] } };
   dataIndex: string;
   renderFormItem?: (
     _: any,
     field: {
-      modelRef: any; //透传表单对象和字段，使父组件可以双向绑定
+      modelRef: T; //透传表单对象和字段，使父组件可以双向绑定
       fields: any;
       placeholder: any;
     },
@@ -73,6 +73,10 @@ export const ProTableProps = {
   onLoad: {
     type: Function as PropType<(data: any) => void>,
     default: undefined,
+  },
+  revalidateOnFocus: {
+    type: Boolean,
+    default: false,
   },
 };
 
