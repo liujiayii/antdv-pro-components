@@ -8,7 +8,7 @@ export type IValueEnum =
 
 export type IValueType = "dateTime" | "date" | "time" | "money" | "option";
 
-export type ProColumns<T> = {
+export type ProColumns<T = any> = {
   search?: boolean | { options: { value: any[] } };
   dataIndex: string;
   renderFormItem?: (
