@@ -129,7 +129,20 @@ export default defineComponent({
         },
       });
     }
+    /** 聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
+    onMounted(() => {
+      // 手动模式和 request 为空都不生效
+      if (!props.request || !props.revalidateOnFocus) return;
 
+      // 聚焦时重新请求事件
+      const visibilitychange = () => {
+        if (document.visibilityState === "visible") {
+          action.reload();
+        }
+      };
+      document.addEventListener("visibilitychange", visibilitychange);
+      return () => document.removeEventListener("visibilitychange", visibilitychange);
+    });
     onMounted(() => {
       if (props.actionRef) {
         props?.actionRef(action);
