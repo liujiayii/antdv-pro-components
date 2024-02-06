@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "classnames": "^2.4.0",
+    "classnames": "^2.5.1",
     "dayjs": "^1.11.10"
   },
   "devDependencies": {
     "ant-design-vue": "^4.1.0",
-    "query-string": "^8.1.0",
-    "sass": "^1.69.5"
+    "query-string": "^8.2.0",
+    "sass": "^1.70.0"
   }
 }

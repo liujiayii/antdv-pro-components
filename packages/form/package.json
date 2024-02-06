@@ -16,11 +16,11 @@
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
     "ant-design-vue": "^4.1.0",
-    "classnames": "^2.5.0",
+    "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
     "lodash-es": "^4.17.21",
-    "query-string": "^8.1.0",
-    "sass": "^1.69.5",
-    "vue": "^3.3.13"
+    "query-string": "^8.2.0",
+    "sass": "^1.70.0",
+    "vue": "^3.4.15"
   }
 }
