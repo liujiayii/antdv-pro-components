@@ -3,7 +3,7 @@ import { Badge, Card, Table } from "ant-design-vue";
 import type { SizeType } from "ant-design-vue/es/config-provider";
 import type { TablePaginationConfig } from "ant-design-vue/es/table";
 import { cloneDeep, isFunction, omit } from "lodash-es";
-import { defineComponent, onMounted, provide, ref } from "vue";
+import { defineComponent, onMounted, provide, reactive, ref } from "vue";
 import ToolBar from "./components/ToolBar";
 import type { ActionType, IValueEnum, ProColumns } from "./typing";
 import { ProTableProps } from "./typing";
@@ -58,23 +58,23 @@ export default defineComponent({
     const loading = ref(false);
     const pagination = ref<TablePaginationConfig>(cloneDeep(pageConfig));
     const tableSize = ref<SizeType[]>(["middle"]);
-    const formState = ref<Record<any, any>>({});
+    const formState = reactive<Record<any, any>>({});
     provide("tableSize", tableSize);
 
     const useFetchData = (
       params: { current?: number; pageSize?: number } = { current: 1, pageSize: 10 },
     ) => {
-      console.log("fetch", params);
+      // console.log("fetch", params);
       //console.log(formState);
       if (!props.request) {
         return;
       }
       loading.value = true;
-      let allObj = { ...params, ...formState.value, ...props.params };
+      let allObj = { ...params, ...formState, ...props.params };
       if (props.beforeSearchSubmit) {
         allObj = props.beforeSearchSubmit(allObj);
       }
-      console.log(allObj);
+      // console.log(allObj);
       props.request(allObj).then((res: any) => {
         loading.value = false;
         if (res?.code === 20000) {
@@ -114,10 +114,10 @@ export default defineComponent({
     };
 
     if (props.formExtraRef) {
-      console.log("init formExtraRef");
+      // console.log("init formExtraRef");
       props?.formExtraRef({
         setFieldsValue: (values: any) => {
-          console.log(values);
+          // console.log(values);
           // 分页参数，后面需要改成pros.pagination传过来
           if (values.current) {
             pagination.value.current = +values.current;
@@ -125,7 +125,7 @@ export default defineComponent({
           if (values.pageSize) {
             pagination.value.pageSize = +values.pageSize;
           }
-          Object.assign(formState.value, omit(values, ["current", "pageSize"]));
+          Object.assign(formState, omit(values, ["current", "pageSize"]));
         },
       });
     }

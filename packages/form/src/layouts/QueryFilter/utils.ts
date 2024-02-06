@@ -72,7 +72,7 @@ export const getSpanConfig = (
     : BREAKPOINTS[(layout as "default") || "default"];
 
   const breakPoint = (spanConfig || BREAKPOINTS.default).find(
-    (item) => width < (item[0] as number) + 16, // 16 = 2 * (ant-row -8px margin)
+    (item) => width < (item[0] as number) + 180, // 16 = 2 * (ant-row -8px margin)
   );
 
   if (!breakPoint) {
