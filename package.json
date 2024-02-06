@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@antd-vc/pro-card": "workspace:*",
@@ -20,7 +20,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.55.0",
     "eslint-plugin-vue": "^9.19.2",
-    "husky": "^8.0.3",
+    "husky": "^9.0.10",
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.0",
     "sass": "^1.69.5",
