@@ -81,7 +81,7 @@ export default defineComponent({
       return isCollapsed.value ? searchArr.value.slice(0, showLength.value) : searchArr.value;
     });
 
-    const spanSize = computed(() => getSpanConfig(layout, width.value + 16, formColConfig));
+    const spanSize = computed(() => getSpanConfig(layout, width.value + 16, undefined));
     const showLength = computed(() => {
       // 查询重置按钮也会占一个spanSize格子，需要减掉计算
       return Math.max(1, 24 / spanSize.value.span - 1);
