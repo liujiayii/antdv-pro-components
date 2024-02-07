@@ -6,7 +6,7 @@ import type { FormInstance } from "ant-design-vue/es/form";
 import { cloneDeep } from "lodash-es";
 import { computed, defineComponent, ref, type PropType } from "vue";
 import { useWindowWidth } from "./hooks";
-import { formColConfig, getSpanConfig } from "./utils";
+import { getSpanConfig } from "./utils";
 
 const layout = "horizontal";
 
