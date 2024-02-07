@@ -11,7 +11,7 @@
   "module": "./es/index.js",
   "types": "./es/index.d.ts",
   "dependencies": {
-    "@antd-vc/pro-utils": "0.0.1-alpha.1"
+    "@antd-vc/pro-utils": "latest"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",

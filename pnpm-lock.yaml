@@ -104,7 +104,7 @@ importers:
   packages/form:
     dependencies:
       '@antd-vc/pro-utils':
-        specifier: 0.0.1-alpha.1
+        specifier: latest
         version: link:../utils
     devDependencies:
       '@ant-design/icons-vue':
@@ -135,7 +135,7 @@ importers:
   packages/table:
     dependencies:
       '@antd-vc/pro-form':
-        specifier: 0.0.1-alpha.4
+        specifier: latest
         version: link:../form
     devDependencies:
       '@ant-design/icons-vue':
