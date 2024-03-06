@@ -37,6 +37,7 @@ const formatTableColumns = (data: ProColumns[]) => {
       } else if (item.valueEnum) {
         row.customRender = item.customRender ?? formatValueEnum(item.valueEnum);
       }
+      delete row.colSpan;
       return row;
     })
     .filter(Boolean);
