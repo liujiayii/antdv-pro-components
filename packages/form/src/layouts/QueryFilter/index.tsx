@@ -3,7 +3,6 @@ import type { ActionType, IValueEnum } from "@antd-vc/pro-table";
 import { type ProColumns } from "@antd-vc/pro-table";
 import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
 import type { FormInstance } from "ant-design-vue/es/form";
-import { cloneDeep } from "lodash-es";
 import { computed, defineComponent, ref, type PropType } from "vue";
 import { useWindowWidth } from "./hooks";
 import { getSpanConfig } from "./utils";
@@ -51,8 +50,7 @@ export default defineComponent({
     const labelWidth = ref("80");
     const searchArr = computed<ProColumns[]>(() => {
       return (
-        // 深拷贝一下是为了防止修改props，以后再解决复用问题；
-        (cloneDeep(props.columns) as ProColumns[])?.filter((item: any) => {
+        (props.columns as ProColumns[])?.filter((item: any) => {
           const result = item.search !== false && item.dataIndex;
           if (result) {
             const colSize = item?.colSize ?? 1;
