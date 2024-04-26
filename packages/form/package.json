@@ -8,8 +8,8 @@
   "files": [
     "es"
   ],
-  "module": "./es/index.js",
-  "types": "./es/index.d.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "dependencies": {
     "@antd-vc/pro-utils": "latest"
   },
