@@ -8,8 +8,8 @@
   "files": [
     "es"
   ],
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
+  "module": "./es/index.js",
+  "types": "./es/index.d.ts",
   "dependencies": {
     "@antd-vc/pro-form": "latest"
   },
