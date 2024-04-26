@@ -9,6 +9,9 @@ import { getSpanConfig } from "./utils";
 
 const layout = "horizontal";
 
+// 缓存首次渲染
+let isFirstShow = true;
+
 export default defineComponent({
   name: "QueryFilter",
   props: {
@@ -45,7 +48,9 @@ export default defineComponent({
   setup(props) {
     // 在页面激活时刷新数据
     onActivated(() => {
+      if (isFirstShow) return;
       props.useFetchData?.();
+      isFirstShow = false;
     });
     const isCollapsed = ref(false);
     const formRef = ref<FormInstance>();
