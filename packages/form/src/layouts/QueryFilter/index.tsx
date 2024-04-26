@@ -48,9 +48,11 @@ export default defineComponent({
   setup(props) {
     // 在页面激活时刷新数据
     onActivated(() => {
-      if (isFirstShow) return;
+      if (isFirstShow) {
+        isFirstShow = false;
+        return;
+      }
       props.useFetchData?.();
-      isFirstShow = false;
     });
     const isCollapsed = ref(false);
     const formRef = ref<FormInstance>();
