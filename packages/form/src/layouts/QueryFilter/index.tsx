@@ -1,9 +1,9 @@
 import { DownOutlined } from "@ant-design/icons-vue";
-import type { ActionType, IValueEnum } from "@antd-vc/pro-table";
-import { type ProColumns } from "@antd-vc/pro-table";
+import type { ActionType, IValueEnum, ProColumns } from "@antd-vc/pro-table";
+
 import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
 import type { FormInstance } from "ant-design-vue/es/form";
-import { computed, defineComponent, onActivated, ref, type PropType } from "vue";
+import { type PropType, computed, defineComponent, onActivated, ref } from "vue";
 import { useWindowWidth } from "./hooks";
 import { getSpanConfig } from "./utils";
 
@@ -15,7 +15,7 @@ let isFirstShow = true;
 export default defineComponent({
   name: "QueryFilter",
   props: {
-    columns: Array, //字段
+    columns: Array, // 字段
     lookUpCondition: {
       type: [Function],
       default: undefined,
@@ -25,7 +25,7 @@ export default defineComponent({
       default: undefined,
     },
     search: {
-      //搜索
+      // 搜索
       type: [Boolean, Object],
       default: true,
     },
@@ -59,6 +59,7 @@ export default defineComponent({
     const formState = props.formState || ref<Record<string, any>>({});
     const width = useWindowWidth();
     const labelWidth = ref("80");
+    const spanSize = computed(() => getSpanConfig(layout, width.value + 16, undefined));
     const searchArr = computed<ProColumns[]>(() => {
       return (
         (props.columns as ProColumns[])?.filter((item: any) => {
@@ -86,14 +87,12 @@ export default defineComponent({
         }) || []
       );
     });
-    const shownSearchArr = computed(() => {
-      return isCollapsed.value ? searchArr.value.slice(0, showLength.value) : searchArr.value;
-    });
-
-    const spanSize = computed(() => getSpanConfig(layout, width.value + 16, undefined));
     const showLength = computed(() => {
       // 查询重置按钮也会占一个spanSize格子，需要减掉计算
       return Math.max(1, 24 / spanSize.value.span - 1);
+    });
+    const shownSearchArr = computed(() => {
+      return isCollapsed.value ? searchArr.value.slice(0, showLength.value) : searchArr.value;
     });
 
     const offset = computed(() => {
@@ -131,46 +130,54 @@ export default defineComponent({
                   name={item.dataIndex as string}
                   {...item.formItemWidth}
                 >
-                  {item.renderFormItem ? (
-                    item.renderFormItem(undefined, {
-                      modelRef: formState, //透传表单对象和字段，使父组件可以双向绑定
-                      fields: item.dataIndex,
-                      placeholder: `请选择${item.title}`,
-                    })
-                  ) : typeof item.search === "object" && item.search?.options ? (
-                    <Select
-                      v-model:value={formState[item.dataIndex]}
-                      options={item.search.options.value}
-                      showSearch={true}
-                      placeholder={`请选择${item.title}`}
-                      allowClear
-                    />
-                  ) : item.valueEnum ? (
-                    <Select
-                      v-model:value={formState[item.dataIndex]}
-                      options={Object.keys(item.valueEnum).map((i) => ({
-                        value: i,
-                        label:
+                  {item.renderFormItem
+                    ? (
+                        item.renderFormItem(undefined, {
+                          modelRef: formState, // 透传表单对象和字段，使父组件可以双向绑定
+                          fields: item.dataIndex,
+                          placeholder: `请选择${item.title}`,
+                        })
+                      )
+                    : typeof item.search === "object" && item.search?.options
+                      ? (
+                        <Select
+                          v-model:value={formState[item.dataIndex]}
+                          options={item.search.options.value}
+                          showSearch={true}
+                          placeholder={`请选择${item.title}`}
+                          allowClear
+                        />
+                        )
+                      : item.valueEnum
+                        ? (
+                          <Select
+                            v-model:value={formState[item.dataIndex]}
+                            options={Object.keys(item.valueEnum).map(i => ({
+                              value: i,
+                              label:
                           typeof (item.valueEnum as IValueEnum)[i] === "object"
                             ? ((item.valueEnum as any)[i]?.text as unknown as string)
                             : (item.valueEnum as IValueEnum)[i],
-                      }))}
-                      placeholder={`请选择${item.title}`}
-                      allowClear
-                    />
-                  ) : item.valueType === "dateTime" ? (
-                    <DatePicker
-                      v-model:value={formState[item.dataIndex]}
-                      placeholder={`请输入${item.title}`}
-                      allowClear
-                    />
-                  ) : (
-                    <Input
-                      v-model:value={formState[item.dataIndex]}
-                      placeholder={`请输入${item.title}`}
-                      allowClear
-                    />
-                  )}
+                            }))}
+                            placeholder={`请选择${item.title}`}
+                            allowClear
+                          />
+                          )
+                        : item.valueType === "dateTime"
+                          ? (
+                            <DatePicker
+                              v-model:value={formState[item.dataIndex]}
+                              placeholder={`请输入${item.title}`}
+                              allowClear
+                            />
+                            )
+                          : (
+                            <Input
+                              v-model:value={formState[item.dataIndex]}
+                              placeholder={`请输入${item.title}`}
+                              allowClear
+                            />
+                            )}
                 </Form.Item>
               </Col>
             ))}
@@ -208,7 +215,8 @@ export default defineComponent({
                               handleSubmit();
                             }
                           });
-                        } else {
+                        }
+                        else {
                           handleSubmit();
                         }
                       }}
@@ -217,26 +225,28 @@ export default defineComponent({
                       {/* 如果传过来这个值，就叫这个名字。如果没有就叫查询 */}
                       {props.textSearch ? props.textSearch : "查询"}
                     </Button>
-                    {typeof props.search === "object" &&
-                      props.search?.optionRender(undefined, { modelRef: formState })}
+                    {typeof props.search === "object"
+                    && props.search?.optionRender(undefined, { modelRef: formState })}
                   </Space>
                   <a
                     onClick={() => {
                       isCollapsed.value = !isCollapsed.value;
                     }}
                   >
-                    {searchArr.value.length > 3 ? (
-                      <div>
-                        {isCollapsed.value ? "展开" : "收起"}
-                        <DownOutlined
-                          style={{
-                            marginInlineStart: "0.5em",
-                            transition: "0.3s all",
-                            transform: `rotate(${isCollapsed.value ? 0 : 0.5}turn)`,
-                          }}
-                        />
-                      </div>
-                    ) : null}
+                    {searchArr.value.length > 3
+                      ? (
+                        <div>
+                          {isCollapsed.value ? "展开" : "收起"}
+                          <DownOutlined
+                            style={{
+                              marginInlineStart: "0.5em",
+                              transition: "0.3s all",
+                              transform: `rotate(${isCollapsed.value ? 0 : 0.5}turn)`,
+                            }}
+                          />
+                        </div>
+                        )
+                      : null}
                   </a>
                 </Space>
               </Form.Item>

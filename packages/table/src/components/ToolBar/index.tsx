@@ -1,7 +1,7 @@
 import { ColumnHeightOutlined, ReloadOutlined } from "@ant-design/icons-vue";
 import { Divider, Dropdown, Menu, Space, Tooltip } from "ant-design-vue";
-import { defineComponent, inject, type PropType } from "vue";
-import { type ActionType } from "../../typing";
+import { type PropType, defineComponent, inject } from "vue";
+import type { ActionType } from "../../typing";
 import styles from "./style.module.scss";
 
 export default defineComponent({
@@ -9,11 +9,11 @@ export default defineComponent({
   props: {
     actionRef: {
       type: Object as PropType<ActionType>,
-    }, //表格操作
+    }, // 表格操作
     title: {
       type: [Array, Boolean],
       default: undefined,
-    }, //表格左上侧
+    }, // 表格左上侧
     // columns: {
     //   type: Array,
     //   default: undefined,
@@ -31,7 +31,7 @@ export default defineComponent({
           <Tooltip title="密度">
             <Dropdown
               trigger={["click"]}
-              overlay={
+              overlay={(
                 <Menu
                   style={{ width: "100px" }}
                   onClick={({ keyPath }) => {
@@ -43,7 +43,7 @@ export default defineComponent({
                   <Menu.Item key="middle">中等</Menu.Item>
                   <Menu.Item key="small">紧凑</Menu.Item>
                 </Menu>
-              }
+              )}
             >
               <ColumnHeightOutlined />
             </Dropdown>

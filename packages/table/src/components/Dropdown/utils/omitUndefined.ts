@@ -2,7 +2,7 @@ type OmitUndefined<T> = {
   [P in keyof T]: NonNullable<T[P]>;
 };
 
-export const omitUndefined = <T extends Record<string, any>>(obj: T): OmitUndefined<T> => {
+export function omitUndefined<T extends Record<string, any>>(obj: T): OmitUndefined<T> {
   const newObj = {} as Record<string, any> as T;
   Object.keys(obj || {}).forEach((key) => {
     if (obj[key] !== undefined) {
@@ -13,4 +13,4 @@ export const omitUndefined = <T extends Record<string, any>>(obj: T): OmitUndefi
     return undefined as any;
   }
   return newObj as OmitUndefined<T>;
-};
+}

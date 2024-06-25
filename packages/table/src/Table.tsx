@@ -9,47 +9,51 @@ import type { ActionType, IValueEnum, ProColumns } from "./typing";
 import { ProTableProps } from "./typing";
 import { pageConfig, valueType } from "./utils";
 
-//值的枚举
-const formatValueEnum = (valueEnum: IValueEnum) => {
+// 值的枚举
+function formatValueEnum(valueEnum: IValueEnum) {
   return ({ text }: { text: string }) => {
     const field = valueEnum[text];
     if (typeof field === "object") {
       return <Badge status={field.status} text={field.text} />;
-    } else if (typeof field === "string") {
+    }
+    else if (typeof field === "string") {
       return field;
-    } else {
+    }
+    else {
       return text;
     }
   };
-};
+}
 
-const formatTableColumns = (data: ProColumns[]) => {
+function formatTableColumns(data: ProColumns[]) {
   return data
     .map((item) => {
       if (item.hideInTable) {
-        return;
+        return undefined;
       }
       const row = { ...item };
       if (item.valueType === "option") {
         row.width = row.width ?? 200;
-      } else if (item.valueType) {
+      }
+      else if (item.valueType) {
         row.customRender = valueType[item.valueType];
-      } else if (item.valueEnum) {
+      }
+      else if (item.valueEnum) {
         row.customRender = item.customRender ?? formatValueEnum(item.valueEnum);
       }
       delete row.colSpan;
       return row;
     })
     .filter(Boolean);
-};
+}
 /**
  * @name 空分页
  * @description 表格没数据时分页器会消失，因此需要一个空的div来撑起高度
  * @why 为什么分页器会消失？https://github.com/ant-design/ant-design/issues/46262
  */
-const EmptyPagination = () => {
+function EmptyPagination() {
   return <div style={{ height: "24px" }}></div>;
-};
+}
 
 export default defineComponent({
   name: "ProTable",
@@ -66,7 +70,7 @@ export default defineComponent({
       params: { current?: number; pageSize?: number } = { current: 1, pageSize: 10 },
     ) => {
       // console.log("fetch", params);
-      //console.log(formState);
+      // console.log(formState);
       if (!props.request) {
         return;
       }
@@ -133,7 +137,8 @@ export default defineComponent({
     /** 聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
     onMounted(() => {
       // 手动模式和 request 为空都不生效
-      if (!props.request || !props.revalidateOnFocus) return;
+      if (!props.request || !props.revalidateOnFocus)
+        return;
 
       // 聚焦时重新请求事件
       const visibilitychange = () => {

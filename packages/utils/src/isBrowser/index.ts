@@ -1,7 +1,9 @@
-const isNode =
-  typeof process !== 'undefined' &&
-  process.versions != null &&
-  process.versions.node != null;
+import process from "node:process";
+
+const isNode
+  = typeof process !== "undefined"
+  && process.versions != null
+  && process.versions.node != null;
 
 /**
  * 用于判断当前是否在浏览器环境中。
@@ -11,14 +13,14 @@ const isNode =
  * 如果都符合，则返回 true 表示当前处于浏览器环境中。
  * @returns  boolean
  */
-export const isBrowser = () => {
-  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'TEST') {
+export function isBrowser() {
+  if (typeof process !== "undefined" && process.env.NODE_ENV === "TEST") {
     return true;
   }
   return (
-    typeof window !== 'undefined' &&
-    typeof window.document !== 'undefined' &&
-    typeof window.matchMedia !== 'undefined' &&
-    !isNode
+    typeof window !== "undefined"
+    && typeof window.document !== "undefined"
+    && typeof window.matchMedia !== "undefined"
+    && !isNode
   );
-};
+}

@@ -1,6 +1,6 @@
 import type { BadgeProps } from "ant-design-vue/es/badge";
 import type { ColumnType } from "ant-design-vue/es/table";
-import { type PropType } from "vue";
+import type { PropType } from "vue";
 
 export type IValueEnum =
   | Record<string, string>
@@ -14,7 +14,7 @@ export type ProColumns<T = any> = {
   renderFormItem?: (
     _: any,
     field: {
-      modelRef: T; //透传表单对象和字段，使父组件可以双向绑定
+      modelRef: T; // 透传表单对象和字段，使父组件可以双向绑定
       fields: any;
       placeholder: any;
     },
@@ -32,24 +32,24 @@ export const ProTableProps = {
     default: undefined,
     required: true,
   },
-  columns: Array, //字段
+  columns: Array, // 字段
   rowKey: {
-    type: [String, Object, Number], //key
+    type: [String, Object, Number], // key
     default: undefined,
   },
   title: {
     type: [Array, Boolean],
     default: undefined,
-  }, //表格左上侧
-  actionRef: Function, //表格操作
+  }, // 表格左上侧
+  actionRef: Function, // 表格操作
   formRef: Function,
   formExtraRef: Function,
   params: {
     type: Object as PropType<Record<any, any>>,
     default: undefined,
-  }, //默认参数
+  }, // 默认参数
   search: {
-    //搜索
+    // 搜索
     type: [Boolean, Object],
     default: true,
   },
@@ -80,25 +80,25 @@ export const ProTableProps = {
   },
 };
 
-export type PageInfo = {
+export interface PageInfo {
   pageSize: number;
   total: number;
   current: number;
-};
+}
 
 /** 操作类型 */
-export type ProCoreActionType = {
+export interface ProCoreActionType {
   /** @name 刷新 */
   reload: (resetPageIndex?: boolean) => Promise<void>;
   /** @name 刷新并清空，只清空页面，不包括表单 */
-  //reloadAndRest?: () => Promise<void>;
+  // reloadAndRest?: () => Promise<void>;
   /** @name 重置任何输入项，包括表单 */
-  //reset?: () => void;
+  // reset?: () => void;
   /** @name 清空选择 */
-  //clearSelected?: () => void;
+  // clearSelected?: () => void;
   /** @name p页面的信息都在里面 */
   // pageInfo?: PageInfo;
-};
+}
 
 /** 操作类型 */
 export type ActionType = ProCoreActionType & {

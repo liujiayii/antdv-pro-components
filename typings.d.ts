@@ -1,4 +1,4 @@
-type CSSModuleClasses = { readonly [key: string]: string };
+interface CSSModuleClasses { readonly [key: string]: string }
 declare module "*.css" {
   const classes: CSSModuleClasses;
   export default classes;
@@ -7,3 +7,5 @@ declare module "*.scss" {
   const classes: CSSModuleClasses;
   export default classes;
 }
+
+declare let process: NodeJS.Process;
