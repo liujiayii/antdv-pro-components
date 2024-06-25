@@ -15,11 +15,9 @@ function formatValueEnum(valueEnum: IValueEnum) {
     const field = valueEnum[text];
     if (typeof field === "object") {
       return <Badge status={field.status} text={field.text} />;
-    }
-    else if (typeof field === "string") {
+    } else if (typeof field === "string") {
       return field;
-    }
-    else {
+    } else {
       return text;
     }
   };
@@ -34,11 +32,9 @@ function formatTableColumns(data: ProColumns[]) {
       const row = { ...item };
       if (item.valueType === "option") {
         row.width = row.width ?? 200;
-      }
-      else if (item.valueType) {
+      } else if (item.valueType) {
         row.customRender = valueType[item.valueType];
-      }
-      else if (item.valueEnum) {
+      } else if (item.valueEnum) {
         row.customRender = item.customRender ?? formatValueEnum(item.valueEnum);
       }
       delete row.colSpan;
