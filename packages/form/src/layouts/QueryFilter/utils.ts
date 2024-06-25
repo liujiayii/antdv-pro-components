@@ -60,7 +60,7 @@ export function getSpanConfig(layout: FormProps["layout"], width: number, span?:
   }
 
   const spanConfig: (string | number)[][] = span
-    ? ["xs", "sm", "md", "lg", "xl", "xxl"].map(key => [
+    ? ["xs", "sm", "md", "lg", "xl", "xxl"].map((key) => [
         CONFIG_SPAN_BREAKPOINTS[key as "xs"],
         24 / (span as any)[key as "sm"],
         "horizontal",
@@ -68,7 +68,7 @@ export function getSpanConfig(layout: FormProps["layout"], width: number, span?:
     : BREAKPOINTS[(layout as "default") || "default"];
 
   const breakPoint = (spanConfig || BREAKPOINTS.default).find(
-    item => width < (item[0] as number) + 16, // 16 = 2 * (ant-row -8px margin)
+    (item) => width < (item[0] as number) + 16, // 16 = 2 * (ant-row -8px margin)
   );
 
   if (!breakPoint) {

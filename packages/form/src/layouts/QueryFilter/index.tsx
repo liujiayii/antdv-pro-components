@@ -152,7 +152,7 @@ export default defineComponent({
                         ? (
                           <Select
                             v-model:value={formState[item.dataIndex]}
-                            options={Object.keys(item.valueEnum).map(i => ({
+                            options={Object.keys(item.valueEnum).map((i) => ({
                               value: i,
                               label:
                           typeof (item.valueEnum as IValueEnum)[i] === "object"
@@ -215,8 +215,7 @@ export default defineComponent({
                               handleSubmit();
                             }
                           });
-                        }
-                        else {
+                        } else {
                           handleSubmit();
                         }
                       }}
