@@ -2,25 +2,25 @@
   "name": "@antd-vc/pro-form",
   "version": "0.0.4",
   "type": "module",
-  "scripts": {
-    "build": "vite build"
-  },
+  "module": "./es/index.js",
+  "types": "./es/index.d.ts",
   "files": [
     "es"
   ],
-  "module": "./es/index.js",
-  "types": "./es/index.d.ts",
+  "scripts": {
+    "build": "vite build"
+  },
   "dependencies": {
     "@antd-vc/pro-utils": "latest"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
-    "ant-design-vue": "^4.1.0",
+    "ant-design-vue": "^4.2.3",
     "classnames": "^2.5.1",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.11",
     "lodash-es": "^4.17.21",
-    "query-string": "^8.2.0",
-    "sass": "^1.70.0",
-    "vue": "^3.4.15"
+    "query-string": "^9.0.0",
+    "sass": "^1.77.6",
+    "vue": "^3.4.30"
   }
 }

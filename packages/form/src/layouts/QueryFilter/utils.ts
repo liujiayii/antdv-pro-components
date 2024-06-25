@@ -3,13 +3,13 @@ import type { FormProps } from "ant-design-vue";
 export type SpanConfig =
   | number
   | {
-      xs: number;
-      sm: number;
-      md: number;
-      lg: number;
-      xl: number;
-      xxl: number;
-    };
+    xs: number;
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
+    xxl: number;
+  };
 // 栅格表单
 export const formColConfig = {
   xs: 24,
@@ -51,11 +51,7 @@ const BREAKPOINTS = {
  * @param layout
  * @param width
  */
-export const getSpanConfig = (
-  layout: FormProps["layout"],
-  width: number,
-  span?: SpanConfig,
-): { span: number; layout: FormProps["layout"] } => {
+export function getSpanConfig(layout: FormProps["layout"], width: number, span?: SpanConfig): { span: number; layout: FormProps["layout"] } {
   if (span && typeof span === "number") {
     return {
       span,
@@ -64,7 +60,7 @@ export const getSpanConfig = (
   }
 
   const spanConfig: (string | number)[][] = span
-    ? ["xs", "sm", "md", "lg", "xl", "xxl"].map((key) => [
+    ? ["xs", "sm", "md", "lg", "xl", "xxl"].map(key => [
         CONFIG_SPAN_BREAKPOINTS[key as "xs"],
         24 / (span as any)[key as "sm"],
         "horizontal",
@@ -72,7 +68,7 @@ export const getSpanConfig = (
     : BREAKPOINTS[(layout as "default") || "default"];
 
   const breakPoint = (spanConfig || BREAKPOINTS.default).find(
-    (item) => width < (item[0] as number) + 16, // 16 = 2 * (ant-row -8px margin)
+    item => width < (item[0] as number) + 16, // 16 = 2 * (ant-row -8px margin)
   );
 
   if (!breakPoint) {
@@ -85,4 +81,4 @@ export const getSpanConfig = (
     span: 24 / (breakPoint[1] as number),
     layout: breakPoint?.[2] as "horizontal",
   };
-};
+}

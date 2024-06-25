@@ -34,27 +34,27 @@ pnpm i @antd-vc/pro-table
 ```tsx
 import { ProTable } from "@antd-vc/pro-table";
 
-<ProTable
-  params={params}
-  request={async (
-    params: T & {
-      pageSize: number;
-      current: number;
-    },
-    sort,
-    filter,
-  ) => {
-    const msg = await myQuery({
-      page: params.current,
-      pageSize: params.pageSize,
-    });
-    return {
-      data: msg.result,
-      success: boolean,
-      total: number,
-    };
-  }}
-/>;
+  <ProTable
+    params={params}
+    request={async (
+      params: T & {
+        pageSize: number;
+        current: number;
+      },
+      sort,
+      filter,
+    ) => {
+      const msg = await myQuery({
+        page: params.current,
+        pageSize: params.pageSize,
+      });
+      return {
+        data: msg.result,
+        success: boolean,
+        total: number,
+      };
+    }}
+  />;
 ```
 
 引入样式：

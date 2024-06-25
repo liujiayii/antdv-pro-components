@@ -8,7 +8,7 @@ const onWindowResize = debounce(() => {
   width.value = document?.body?.clientWidth;
 }, 300);
 
-export const useWindowWidth = () => {
+export function useWindowWidth() {
   onMounted(() => {
     window.addEventListener("resize", () => onWindowResize());
   });
@@ -16,4 +16,4 @@ export const useWindowWidth = () => {
     window.removeEventListener("resize", () => onWindowResize());
   });
   return width;
-};
+}

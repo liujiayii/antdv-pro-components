@@ -6,13 +6,14 @@ export const pageConfig: TablePaginationConfig = {
   size: "small",
   showQuickJumper: true,
   showSizeChanger: true,
-  showTotal: (total) => `总共 ${total} 条`,
+  showTotal: total => `总共 ${total} 条`,
   pageSize: 10,
   current: 1,
 };
 
-//值类型
-//@ts-ignore
+// 值类型
+// eslint-disable-next-line ts/ban-ts-comment
+// @ts-expect-error
 export const valueType: Record<IValueType, (record: any) => string | undefined> = {
   dateTime: ({ text }: { text?: string }) => text && dayjs(text).format("YYYY/MM/DD HH:mm:ss"),
   date: ({ text }: { text?: string }) => text && dayjs(text).format("YYYY/MM/DD"),

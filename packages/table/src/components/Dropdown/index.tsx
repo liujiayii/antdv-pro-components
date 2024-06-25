@@ -1,7 +1,7 @@
 import { EllipsisOutlined } from "@ant-design/icons-vue";
 import { Dropdown } from "ant-design-vue";
-import { type MenuItemProps } from "ant-design-vue/es/menu";
-import { defineComponent, type CSSProperties, type PropType } from "vue";
+import type { MenuItemProps } from "ant-design-vue/es/menu";
+import { type CSSProperties, type PropType, defineComponent } from "vue";
 import { menuOverlayCompatible } from "./utils/menuOverlayCompatible";
 
 interface MenuItems extends MenuItemProps {
@@ -10,13 +10,13 @@ interface MenuItems extends MenuItemProps {
   title?: string;
 }
 
-type DropdownProps = {
+interface DropdownProps {
   children?: () => void;
   menus: MenuItems[];
   onSelect?: (key: string) => void;
   className?: string;
   style: CSSProperties;
-};
+}
 export default defineComponent({
   name: "TableDropdown",
   props: {
@@ -42,8 +42,7 @@ export default defineComponent({
   },
   /**
    * 一个简单的下拉菜单
-   *
-   * @param param0
+   * @param props
    */
   setup(props) {
     const { style, onSelect, menus = [], children } = props;
@@ -80,7 +79,8 @@ export default defineComponent({
       onClick: (params) => {
         onSelect?.(params.key as string);
       },
-      // @ts-ignore
+      // eslint-disable-next-line ts/ban-ts-comment
+      // @ts-expect-error
       items: menus.map(({ key, name, ...rest }) => ({
         key,
         ...rest,

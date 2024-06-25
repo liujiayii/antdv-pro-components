@@ -1,18 +1,20 @@
-﻿import { version } from "ant-design-vue";
+import process from "node:process";
+import { version } from "ant-design-vue";
 import { omitUndefined } from "./omitUndefined";
 import { compareVersions } from "./index";
 
-export const getVersion = () => {
-  if (typeof process === "undefined") return version;
+export function getVersion() {
+  if (typeof process === "undefined")
+    return version;
   return process?.env?.ANTD_VERSION || version;
-};
+}
 
-const openVisibleCompatible = (open?: boolean, onOpenChange?: any) => {
-  const props =
-    compareVersions(getVersion(), "4.23.0") > -1
+function openVisibleCompatible(open?: boolean, onOpenChange?: any) {
+  const props
+    = compareVersions(getVersion(), "4.23.0") > -1
       ? {
-          open: open,
-          onOpenChange: onOpenChange,
+          open,
+          onOpenChange,
         }
       : {
           visible: open,
@@ -20,6 +22,6 @@ const openVisibleCompatible = (open?: boolean, onOpenChange?: any) => {
         };
 
   return omitUndefined(props);
-};
+}
 
 export { openVisibleCompatible };
