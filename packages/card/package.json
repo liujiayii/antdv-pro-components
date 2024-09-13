@@ -7,7 +7,7 @@
     "dayjs": "^1.11.11"
   },
   "devDependencies": {
-    "ant-design-vue": "^4.2.3",
+    "ant-design-vue": "^4.2.4",
     "query-string": "^9.0.0",
     "sass": "^1.77.6"
   }
