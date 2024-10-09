@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "ant-design-vue": "^4.2.3",
-    "query-string": "^9.0.0",
+    "query-string": "^9.1.1",
     "sass": "^1.77.6"
   }
 }
