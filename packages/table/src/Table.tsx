@@ -4,6 +4,7 @@ import type { SizeType } from "ant-design-vue/es/config-provider";
 import type { TablePaginationConfig } from "ant-design-vue/es/table";
 import { cloneDeep, isFunction, omit } from "lodash-es";
 import { defineComponent, onMounted, provide, reactive, ref } from "vue";
+import type { SearchConfig } from "@antd-vc/pro-form";
 import ToolBar from "./components/ToolBar";
 import type { ActionType, IValueEnum, ProColumns } from "./typing";
 import { ProTableProps } from "./typing";
@@ -158,8 +159,7 @@ export default defineComponent({
           <QueryFilter
             columns={props.columns}
             lookUpCondition={props.lookUpCondition}
-            search={props.search}
-            textSearch={props.textSearch}
+            search={props.search as SearchConfig}
             useFetchData={useFetchData}
             tableAction={action}
             loading={loading.value}

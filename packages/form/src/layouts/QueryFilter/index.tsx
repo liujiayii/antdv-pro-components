@@ -1,11 +1,11 @@
 import { DownOutlined } from "@ant-design/icons-vue";
 import type { ActionType, IValueEnum, ProColumns } from "@antd-vc/pro-table";
-
 import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
 import type { FormInstance } from "ant-design-vue/es/form";
 import { type PropType, computed, defineComponent, onActivated, ref } from "vue";
 import { useWindowWidth } from "./hooks";
 import { getSpanConfig } from "./utils";
+import type { SearchConfig } from "./types";
 
 const layout = "horizontal";
 
@@ -20,14 +20,13 @@ export default defineComponent({
       type: [Function],
       default: undefined,
     },
-    textSearch: {
-      type: String,
-      default: undefined,
-    },
+    /**
+     * @type SearchConfig
+     * @name 是否显示搜索表单
+     */
     search: {
-      // 搜索
-      type: [Boolean, Object],
-      default: true,
+      type: [Object] as PropType<SearchConfig>,
+      default: () => ({}),
     },
     useFetchData: {
       type: Function,
@@ -115,6 +114,40 @@ export default defineComponent({
     if (!searchArr.value.length) {
       return () => null;
     }
+    const searchBtnDom = [
+      <Button
+        onClick={() => {
+          formRef.value?.resetFields();
+          Object.keys(formState).forEach((item) => {
+            formState[item] = undefined;
+          });
+          props.useFetchData?.();
+        }}
+      >
+        {props.search?.resetText || "重置"}
+      </Button>,
+      <Button
+        type="primary"
+        onClick={() => {
+          // 查询的前置条件
+          if (props.lookUpCondition) {
+            // 把modelRef传出去
+            props.lookUpCondition(formState).then((res: boolean) => {
+              // console.log("查询条件res", res);
+              // 成立才执行
+              if (res) {
+                handleSubmit();
+              }
+            });
+          } else {
+            handleSubmit();
+          }
+        }}
+        loading={props.loading}
+      >
+        {props.search?.searchText || "查询"}
+      </Button>,
+    ];
     return () => (
       <Card
         bordered={false}
@@ -191,41 +224,9 @@ export default defineComponent({
               >
                 <Space size={16}>
                   <Space>
-                    <Button
-                      onClick={() => {
-                        formRef.value?.resetFields();
-                        Object.keys(formState).forEach((item) => {
-                          formState[item] = undefined;
-                        });
-                        props.useFetchData?.();
-                      }}
-                    >
-                      重置
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => {
-                        // 查询的前置条件
-                        if (props.lookUpCondition) {
-                          // 把modelRef传出去
-                          props.lookUpCondition(formState).then((res: boolean) => {
-                            // console.log("查询条件res", res);
-                            // 成立才执行
-                            if (res) {
-                              handleSubmit();
-                            }
-                          });
-                        } else {
-                          handleSubmit();
-                        }
-                      }}
-                      loading={props.loading}
-                    >
-                      {/* 如果传过来这个值，就叫这个名字。如果没有就叫查询 */}
-                      {props.textSearch ? props.textSearch : "查询"}
-                    </Button>
-                    {typeof props.search === "object"
-                    && props.search?.optionRender(undefined, { modelRef: formState })}
+                    {props.search?.optionRender
+                      ? props.search?.optionRender?.({ form: formRef.value }, { modelRef: formState }, searchBtnDom)
+                      : searchBtnDom }
                   </Space>
                   <a
                     onClick={() => {
