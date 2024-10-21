@@ -1,7 +1,7 @@
 {
   "name": "@antd-vc/pro-form",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "module": "./es/index.js",
   "types": "./es/index.d.ts",
   "files": [
