@@ -1,7 +1,7 @@
 {
   "eslint.format.enable": true,
   "editor.tabSize": 2,
-  "cSpell.words": ["ahooks", "antd", "antdv", "antdvc", "xiaodou"],
+  "cSpell.words": ["antd", "antdv", "antdvc"],
   "unocss.remToPxPreview": true,
 
   // Disable the default formatter, use eslint instead

@@ -2,6 +2,11 @@
   "name": "@antd-vc/pro-table",
   "type": "module",
   "version": "0.0.3",
+  "homepage": "https://github.com/liujiayii/antdv-pro-components",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liujiayii/antdv-pro-components"
+  },
   "module": "./es/index.js",
   "types": "./es/index.d.ts",
   "files": [
