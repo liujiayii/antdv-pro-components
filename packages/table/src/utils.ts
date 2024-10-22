@@ -1,6 +1,6 @@
 import type { TablePaginationConfig } from "ant-design-vue/es/table";
-import dayjs from "dayjs";
 import type { IValueType } from "./typing";
+import dayjs from "dayjs";
 
 export const pageConfig: TablePaginationConfig = {
   size: "small",

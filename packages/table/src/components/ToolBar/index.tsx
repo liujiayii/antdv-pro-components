@@ -1,7 +1,7 @@
+import type { ActionType } from "../../typing";
 import { ColumnHeightOutlined, ReloadOutlined } from "@ant-design/icons-vue";
 import { Divider, Dropdown, Menu, Space, Tooltip } from "ant-design-vue";
-import { type PropType, defineComponent, inject } from "vue";
-import type { ActionType } from "../../typing";
+import { defineComponent, inject, type PropType } from "vue";
 import styles from "./style.module.scss";
 
 export default defineComponent({

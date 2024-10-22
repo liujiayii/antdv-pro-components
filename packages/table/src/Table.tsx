@@ -1,12 +1,12 @@
-import { QueryFilter } from "@antd-vc/pro-form";
-import { Badge, Card, Table } from "ant-design-vue";
+import type { SearchConfig } from "@antd-vc/pro-form";
 import type { SizeType } from "ant-design-vue/es/config-provider";
 import type { TablePaginationConfig } from "ant-design-vue/es/table";
+import type { ActionType, IValueEnum, ProColumns } from "./typing";
+import { QueryFilter } from "@antd-vc/pro-form";
+import { Badge, Card, Table } from "ant-design-vue";
 import { cloneDeep, isFunction, omit } from "lodash-es";
 import { defineComponent, onMounted, provide, reactive, ref } from "vue";
-import type { SearchConfig } from "@antd-vc/pro-form";
 import ToolBar from "./components/ToolBar";
-import type { ActionType, IValueEnum, ProColumns } from "./typing";
 import { ProTableProps } from "./typing";
 import { pageConfig, valueType } from "./utils";
 

@@ -1,6 +1,6 @@
+import type { SearchConfig } from "@antd-vc/pro-form";
 import type { BadgeProps } from "ant-design-vue/es/badge";
 import type { ColumnType } from "ant-design-vue/es/table";
-import type { SearchConfig } from "@antd-vc/pro-form";
 import type { PropType } from "vue";
 
 export type IValueEnum =
@@ -55,7 +55,7 @@ export const ProTableProps = {
    */
   search: {
     type: [Boolean, Object] as PropType<boolean | SearchConfig>,
-    default: true,
+    default: () => ({}),
   },
   lookUpCondition: {
     type: [Function],
