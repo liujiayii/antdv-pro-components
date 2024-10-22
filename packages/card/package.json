@@ -2,6 +2,11 @@
   "name": "@antd-vc/pro-card",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/liujiayii/antdv-pro-components",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liujiayii/antdv-pro-components"
+  },
   "dependencies": {
     "classnames": "^2.5.1",
     "dayjs": "^1.11.11"

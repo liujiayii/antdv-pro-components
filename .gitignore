@@ -1,6 +1,3 @@
-# Editor directories and files
-.idea
-
 # Package Manager
 node_modules
 
@@ -10,15 +7,6 @@ node_modules
 # Bundle
 dist
 coverage
-.dumi
-
-# local env files
-*.local
-
-.umi
-.umi-production
-#yarn.lock
 
 **/es/**
 **/lib/**
-tsconfig.tsbuildinfo
