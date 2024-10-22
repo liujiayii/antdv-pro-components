@@ -1,7 +1,7 @@
 {
   "name": "@antd-vc/pro-table",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/liujiayii/antdv-pro-components",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
-    "ant-design-vue": "^4.2.3",
+    "ant-design-vue": "^4.2.5",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.11",
     "lodash-es": "^4.17.21",
