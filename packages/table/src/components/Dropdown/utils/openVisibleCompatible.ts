@@ -1,7 +1,7 @@
 import process from "node:process";
 import { version } from "ant-design-vue";
-import { omitUndefined } from "./omitUndefined";
 import { compareVersions } from "./index";
+import { omitUndefined } from "./omitUndefined";
 
 export function getVersion() {
   if (typeof process === "undefined")

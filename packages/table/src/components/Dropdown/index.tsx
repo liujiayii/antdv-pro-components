@@ -1,7 +1,7 @@
+import type { MenuItemProps } from "ant-design-vue/es/menu";
 import { EllipsisOutlined } from "@ant-design/icons-vue";
 import { Dropdown } from "ant-design-vue";
-import type { MenuItemProps } from "ant-design-vue/es/menu";
-import { type CSSProperties, type PropType, defineComponent } from "vue";
+import { type CSSProperties, defineComponent, type PropType } from "vue";
 import { menuOverlayCompatible } from "./utils/menuOverlayCompatible";
 
 interface MenuItems extends MenuItemProps {

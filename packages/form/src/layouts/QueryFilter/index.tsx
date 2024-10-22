@@ -1,11 +1,11 @@
-import { DownOutlined } from "@ant-design/icons-vue";
 import type { ActionType, IValueEnum, ProColumns } from "@antd-vc/pro-table";
-import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
 import type { FormInstance } from "ant-design-vue/es/form";
-import { type PropType, computed, defineComponent, onActivated, ref } from "vue";
+import type { SearchConfig } from "./types";
+import { DownOutlined } from "@ant-design/icons-vue";
+import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
+import { computed, defineComponent, onActivated, type PropType, ref } from "vue";
 import { useWindowWidth } from "./hooks";
 import { getSpanConfig } from "./utils";
-import type { SearchConfig } from "./types";
 
 const layout = "horizontal";
 
@@ -173,43 +173,43 @@ export default defineComponent({
                       )
                     : typeof item.search === "object" && item.search?.options
                       ? (
-                        <Select
-                          v-model:value={formState[item.dataIndex]}
-                          options={item.search.options.value}
-                          showSearch={true}
-                          placeholder={`请选择${item.title}`}
-                          allowClear
-                        />
-                        )
-                      : item.valueEnum
-                        ? (
                           <Select
                             v-model:value={formState[item.dataIndex]}
-                            options={Object.keys(item.valueEnum).map((i) => ({
-                              value: i,
-                              label:
-                          typeof (item.valueEnum as IValueEnum)[i] === "object"
-                            ? ((item.valueEnum as any)[i]?.text as unknown as string)
-                            : (item.valueEnum as IValueEnum)[i],
-                            }))}
+                            options={item.search.options.value}
+                            showSearch={true}
                             placeholder={`请选择${item.title}`}
                             allowClear
                           />
+                        )
+                      : item.valueEnum
+                        ? (
+                            <Select
+                              v-model:value={formState[item.dataIndex]}
+                              options={Object.keys(item.valueEnum).map((i) => ({
+                                value: i,
+                                label:
+                          typeof (item.valueEnum as IValueEnum)[i] === "object"
+                            ? ((item.valueEnum as any)[i]?.text as unknown as string)
+                            : (item.valueEnum as IValueEnum)[i],
+                              }))}
+                              placeholder={`请选择${item.title}`}
+                              allowClear
+                            />
                           )
                         : item.valueType === "dateTime"
                           ? (
-                            <DatePicker
-                              v-model:value={formState[item.dataIndex]}
-                              placeholder={`请输入${item.title}`}
-                              allowClear
-                            />
+                              <DatePicker
+                                v-model:value={formState[item.dataIndex]}
+                                placeholder={`请输入${item.title}`}
+                                allowClear
+                              />
                             )
                           : (
-                            <Input
-                              v-model:value={formState[item.dataIndex]}
-                              placeholder={`请输入${item.title}`}
-                              allowClear
-                            />
+                              <Input
+                                v-model:value={formState[item.dataIndex]}
+                                placeholder={`请输入${item.title}`}
+                                allowClear
+                              />
                             )}
                 </Form.Item>
               </Col>
@@ -235,16 +235,16 @@ export default defineComponent({
                   >
                     {searchArr.value.length > 3
                       ? (
-                        <div>
-                          {isCollapsed.value ? "展开" : "收起"}
-                          <DownOutlined
-                            style={{
-                              marginInlineStart: "0.5em",
-                              transition: "0.3s all",
-                              transform: `rotate(${isCollapsed.value ? 0 : 0.5}turn)`,
-                            }}
-                          />
-                        </div>
+                          <div>
+                            {isCollapsed.value ? "展开" : "收起"}
+                            <DownOutlined
+                              style={{
+                                marginInlineStart: "0.5em",
+                                transition: "0.3s all",
+                                transform: `rotate(${isCollapsed.value ? 0 : 0.5}turn)`,
+                              }}
+                            />
+                          </div>
                         )
                       : null}
                   </a>

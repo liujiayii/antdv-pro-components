@@ -1,5 +1,5 @@
 import type { FormInstance } from "ant-design-vue/es/form";
-import type { VNode, defineComponent } from "vue";
+import type { defineComponent, VNode } from "vue";
 
 type VueJSXComponentType = ReturnType<typeof defineComponent>;
 export interface SearchConfig {
@@ -17,5 +17,6 @@ export interface SearchConfig {
   optionRender?: (
     searchConfig: { form?: FormInstance },
     props: { modelRef: Record<string, any> },
-    dom: VNode[]) => Array<VNode | VueJSXComponentType>;
+    dom: VNode[]
+  ) => Array<VNode | VueJSXComponentType>;
 };

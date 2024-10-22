@@ -1,6 +1,6 @@
-import ProTable from "./Table";
-import TableDropdown from "./components/Dropdown";
 import type { ActionType, IValueEnum, ProColumns } from "./typing";
+import TableDropdown from "./components/Dropdown";
+import ProTable from "./Table";
 
 export { ProTable, TableDropdown };
 
