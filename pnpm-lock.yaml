@@ -86,8 +86,8 @@ importers:
         version: 1.11.13
     devDependencies:
       ant-design-vue:
-        specifier: ^4.2.3
-        version: 4.2.4(vue@3.5.12(typescript@5.6.3))
+        specifier: ^4.2.5
+        version: 4.2.5(vue@3.5.12(typescript@5.6.3))
       query-string:
         specifier: ^9.1.1
         version: 9.1.1
@@ -105,8 +105,8 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(vue@3.5.12(typescript@5.6.3))
       ant-design-vue:
-        specifier: ^4.2.3
-        version: 4.2.4(vue@3.5.12(typescript@5.6.3))
+        specifier: ^4.2.5
+        version: 4.2.5(vue@3.5.12(typescript@5.6.3))
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -136,8 +136,8 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(vue@3.5.12(typescript@5.6.3))
       ant-design-vue:
-        specifier: ^4.2.3
-        version: 4.2.4(vue@3.5.12(typescript@5.6.3))
+        specifier: ^4.2.5
+        version: 4.2.5(vue@3.5.12(typescript@5.6.3))
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -160,8 +160,8 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(vue@3.5.12(typescript@5.6.3))
       ant-design-vue:
-        specifier: ^4.2.3
-        version: 4.2.4(vue@3.5.12(typescript@5.6.3))
+        specifier: ^4.2.5
+        version: 4.2.5(vue@3.5.12(typescript@5.6.3))
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -1110,8 +1110,8 @@ packages:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
     engines: {node: '>=12'}
 
-  ant-design-vue@4.2.4:
-    resolution: {integrity: sha512-leMqWgH4EJ4oq8NEouy6kfHT6DMv4VaWJ0/cS+jd9A1LUewrZGKLuLtn+cz5mk0vIRXUHuMYMqpS6zEUuZ/whw==}
+  ant-design-vue@4.2.5:
+    resolution: {integrity: sha512-dh5CBXSaxJZBFQBd156sOUuZPfxI7pZsNXDYpHNBt/JyKZoYlbetRp/nJmSragS2Oo0mVC23Ote+TQSGc0TX6g==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       vue: '>=3.2.0'
@@ -3691,7 +3691,7 @@ snapshots:
 
   ansi-styles@6.2.1: {}
 
-  ant-design-vue@4.2.4(vue@3.5.12(typescript@5.6.3)):
+  ant-design-vue@4.2.5(vue@3.5.12(typescript@5.6.3)):
     dependencies:
       '@ant-design/colors': 6.0.0
       '@ant-design/icons-vue': 7.0.1(vue@3.5.12(typescript@5.6.3))
