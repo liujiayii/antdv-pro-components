@@ -10,7 +10,7 @@
   "scripts": {
     "build": "vite build"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@antd-vc/pro-utils": "latest"
   },
   "devDependencies": {
