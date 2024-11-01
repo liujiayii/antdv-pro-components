@@ -34,7 +34,6 @@ export const ProFormProps = {
   formState: {
     type: Object as PropType<Record<string, any>>,
     default: () => ({}),
-    required: true,
   },
 };
 

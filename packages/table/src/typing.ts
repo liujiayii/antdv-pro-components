@@ -46,26 +46,26 @@ export const ProTableProps = {
   /** 渲染工具栏，支持返回一个 dom 数组，会自动增加 margin-right */
   toolBarRender: {
     type: [Function, Boolean] as PropType<() => any[] | false>,
-    default: undefined,
+    default: () => undefined,
   },
   /** 左上角的 title */
   headerTitle: {
     type: Object as PropType<any>,
-    default: undefined,
+    default: () => undefined,
   },
   /** 表格操作 */
   actionRef: {
     type: Object as PropType<Ref<ActionType>>,
-    default: undefined,
+    default: () => null,
   },
   formRef: {
     type: Object as PropType<Ref<FormInstance | undefined >>,
-    default: undefined,
+    default: () => undefined,
   },
   /** 默认参数 */
   params: {
     type: Object as PropType<Record<any, any>>,
-    default: undefined,
+    default: () => undefined,
   },
   /**
    * @type SearchConfig

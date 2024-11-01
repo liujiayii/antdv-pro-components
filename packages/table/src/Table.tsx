@@ -5,7 +5,7 @@ import type { ActionType, IValueEnum, ProColumns } from "./typing";
 import { QueryFilter } from "@antd-vc/pro-form";
 import { Badge, Card, Table } from "ant-design-vue";
 import { cloneDeep, isFunction } from "lodash-es";
-import { defineComponent, onMounted, provide, reactive, ref } from "vue";
+import { defineComponent, onMounted, provide, reactive, ref, watch } from "vue";
 import ToolBar from "./components/ToolBar";
 import { ProTableProps } from "./typing";
 import { pageConfig, valueType } from "./utils";
@@ -131,10 +131,12 @@ export default defineComponent({
       return () => document.removeEventListener("visibilitychange", visibilitychange);
     });
     onMounted(() => {
-      if (props.actionRef) {
-        props.actionRef.value = actionRef.value;
-      }
       useFetchData({ current: pagination.value.current, pageSize: pagination.value.pageSize });
+    });
+    watch(() => actionRef.value, (newActionRef) => {
+      if (props.actionRef) {
+        props.actionRef.value = newActionRef;
+      }
     });
 
     return () => (

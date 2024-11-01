@@ -2,7 +2,7 @@ import type { IValueEnum, ProColumns } from "@antd-vc/pro-table";
 import type { FormInstance } from "ant-design-vue/es/form";
 import { DownOutlined } from "@ant-design/icons-vue";
 import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
-import { computed, defineComponent, onActivated, onMounted, ref } from "vue";
+import { computed, defineComponent, onActivated, ref, watch } from "vue";
 import { useWindowWidth } from "./hooks";
 import { ProFormProps } from "./types";
 import { getSpanConfig } from "./utils";
@@ -119,9 +119,9 @@ export default defineComponent({
         {props.search?.searchText || "查询"}
       </Button>,
     ];
-    onMounted(() => {
+    watch(() => formRef.value, (newFormRef) => {
       if (props.formRef) {
-        props.formRef.value = formRef.value;
+        props.formRef.value = newFormRef;
       }
     });
     return () => (
