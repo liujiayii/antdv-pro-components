@@ -4,8 +4,8 @@ import type { TablePaginationConfig } from "ant-design-vue/es/table";
 import type { ActionType, IValueEnum, ProColumns } from "./typing";
 import { QueryFilter } from "@antd-vc/pro-form";
 import { Badge, Card, Table } from "ant-design-vue";
-import { cloneDeep, isFunction, omit } from "lodash-es";
-import { defineComponent, onMounted, provide, reactive, ref } from "vue";
+import { cloneDeep, isFunction } from "lodash-es";
+import { defineComponent, onMounted, provide, reactive, ref, watch } from "vue";
 import ToolBar from "./components/ToolBar";
 import { ProTableProps } from "./typing";
 import { pageConfig, valueType } from "./utils";
@@ -105,7 +105,7 @@ export default defineComponent({
       });
     };
 
-    const action: ActionType = {
+    const actionRef = ref<ActionType>({
       reload: () => handleTableChange(),
       setPageInfo(page) {
         pagination.value = {
@@ -113,24 +113,8 @@ export default defineComponent({
           ...page,
         };
       },
-    };
+    });
 
-    if (props.formExtraRef) {
-      // console.log("init formExtraRef");
-      props?.formExtraRef({
-        setFieldsValue: (values: any) => {
-          // console.log(values);
-          // 分页参数，后面需要改成pros.pagination传过来
-          if (values.current) {
-            pagination.value.current = +values.current;
-          }
-          if (values.pageSize) {
-            pagination.value.pageSize = +values.pageSize;
-          }
-          Object.assign(formState, omit(values, ["current", "pageSize"]));
-        },
-      });
-    }
     /** 聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
     onMounted(() => {
       // 手动模式和 request 为空都不生效
@@ -140,17 +124,19 @@ export default defineComponent({
       // 聚焦时重新请求事件
       const visibilitychange = () => {
         if (document.visibilityState === "visible") {
-          action.reload();
+          actionRef.value?.reload();
         }
       };
       document.addEventListener("visibilitychange", visibilitychange);
       return () => document.removeEventListener("visibilitychange", visibilitychange);
     });
     onMounted(() => {
-      if (props.actionRef) {
-        props?.actionRef(action);
-      }
       useFetchData({ current: pagination.value.current, pageSize: pagination.value.pageSize });
+    });
+    watch(() => actionRef.value, (newActionRef) => {
+      if (props.actionRef) {
+        props.actionRef.value = newActionRef;
+      }
     });
 
     return () => (
@@ -161,16 +147,17 @@ export default defineComponent({
             lookUpCondition={props.lookUpCondition}
             search={props.search as SearchConfig}
             useFetchData={useFetchData}
-            tableAction={action}
+            tableAction={actionRef}
             loading={loading.value}
             formState={formState}
+            formRef={props.formRef}
           />
         )}
         <Card bordered={false} bodyStyle={{ padding: "0 24px" }}>
           <ToolBar
-            actionRef={action}
-            title={props.title}
-            // columns={formatTableColumns(props.columns as any) as any}
+            actionRef={actionRef}
+            toolBarRender={props.toolBarRender}
+            headerTitle={props.headerTitle}
           />
           <Table
             bordered
