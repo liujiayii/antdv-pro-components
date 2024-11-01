@@ -18,6 +18,7 @@ export default defineConfig({
     vueJsx(),
     dts({
       entryRoot: resolve(__dirname, "src"),
+      pathsToAliases: false,
     }),
   ],
   build: {
