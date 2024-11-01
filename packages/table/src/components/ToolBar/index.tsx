@@ -17,10 +17,12 @@ export default defineComponent({
     };
     return () => (
       <Flex justify="space-between" style={{ paddingBlock: "16px" }}>
-        <Flex align="center">
-          {props.headerTitle}
-        </Flex>
-        <Flex gap={8}>
+        <div>
+          <Flex align="center">
+            {props.headerTitle}
+          </Flex>
+        </div>
+        <Flex align="center" gap={8}>
           <Space size={8}>{props.toolBarRender?.()}</Space>
           <Space size={8}>
             <Tooltip title="刷新">
