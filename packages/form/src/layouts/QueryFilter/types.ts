@@ -24,7 +24,8 @@ export const ProFormProps = {
     type: Function,
   },
   tableAction: {
-    type: Object as PropType<ActionType>,
+    type: Object as PropType<Ref<ActionType>>,
+    default: undefined,
   },
   loading: {
     type: Boolean,

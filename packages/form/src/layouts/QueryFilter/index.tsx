@@ -79,7 +79,7 @@ export default defineComponent({
 
     const handleSubmit = () => {
       // console.log('查询')
-      props.tableAction?.setPageInfo?.({ current: 1 });
+      props.tableAction?.value?.setPageInfo?.({ current: 1 });
       props.useFetchData?.();
     };
     if (!searchArr.value.length) {

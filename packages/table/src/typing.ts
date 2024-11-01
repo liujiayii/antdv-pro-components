@@ -43,14 +43,19 @@ export const ProTableProps = {
     type: [String, Object, Number], // key
     default: undefined,
   },
-  /** 表格左上侧 */
-  title: {
-    type: [Array, Boolean],
+  /** 渲染工具栏，支持返回一个 dom 数组，会自动增加 margin-right */
+  toolBarRender: {
+    type: [Function, Boolean] as PropType<() => any[] | false>,
+    default: undefined,
+  },
+  /** 左上角的 title */
+  headerTitle: {
+    type: Object as PropType<any>,
     default: undefined,
   },
   /** 表格操作 */
   actionRef: {
-    type: Object as PropType<Ref<ActionType >>,
+    type: Object as PropType<Ref<ActionType>>,
     default: undefined,
   },
   formRef: {

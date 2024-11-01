@@ -105,7 +105,7 @@ export default defineComponent({
       });
     };
 
-    const action: ActionType = {
+    const actionRef = ref<ActionType>({
       reload: () => handleTableChange(),
       setPageInfo(page) {
         pagination.value = {
@@ -113,7 +113,7 @@ export default defineComponent({
           ...page,
         };
       },
-    };
+    });
 
     /** 聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
     onMounted(() => {
@@ -124,7 +124,7 @@ export default defineComponent({
       // 聚焦时重新请求事件
       const visibilitychange = () => {
         if (document.visibilityState === "visible") {
-          action.reload();
+          actionRef.value?.reload();
         }
       };
       document.addEventListener("visibilitychange", visibilitychange);
@@ -132,7 +132,7 @@ export default defineComponent({
     });
     onMounted(() => {
       if (props.actionRef) {
-        props.actionRef.value = action;
+        props.actionRef.value = actionRef.value;
       }
       useFetchData({ current: pagination.value.current, pageSize: pagination.value.pageSize });
     });
@@ -145,7 +145,7 @@ export default defineComponent({
             lookUpCondition={props.lookUpCondition}
             search={props.search as SearchConfig}
             useFetchData={useFetchData}
-            tableAction={action}
+            tableAction={actionRef}
             loading={loading.value}
             formState={formState}
             formRef={props.formRef}
@@ -153,9 +153,9 @@ export default defineComponent({
         )}
         <Card bordered={false} bodyStyle={{ padding: "0 24px" }}>
           <ToolBar
-            actionRef={action}
-            title={props.title}
-            // columns={formatTableColumns(props.columns as any) as any}
+            actionRef={actionRef}
+            toolBarRender={props.toolBarRender}
+            headerTitle={props.headerTitle}
           />
           <Table
             bordered
