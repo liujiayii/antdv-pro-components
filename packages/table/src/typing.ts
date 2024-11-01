@@ -1,7 +1,8 @@
 import type { SearchConfig } from "@antd-vc/pro-form";
 import type { BadgeProps } from "ant-design-vue/es/badge";
+import type { FormInstance } from "ant-design-vue/es/form";
 import type { ColumnType } from "ant-design-vue/es/table";
-import type { PropType } from "vue";
+import type { PropType, Ref } from "vue";
 
 export type IValueEnum =
   | Record<string, string>
@@ -11,7 +12,7 @@ export type IValueType = "dateTime" | "date" | "time" | "money" | "option";
 
 export type ProColumns<T = any> = {
   search?: boolean | { options: { value: any[] } };
-  dataIndex: string;
+  dataIndex?: string;
   renderFormItem?: (
     _: any,
     field: {
@@ -33,22 +34,34 @@ export const ProTableProps = {
     default: undefined,
     required: true,
   },
-  columns: Array, // 字段
+  /** 字段 */
+  columns: {
+    type: Array as PropType<ProColumns[]>,
+    default: () => [],
+  },
   rowKey: {
     type: [String, Object, Number], // key
     default: undefined,
   },
+  /** 表格左上侧 */
   title: {
     type: [Array, Boolean],
     default: undefined,
-  }, // 表格左上侧
-  actionRef: Function, // 表格操作
-  formRef: Function,
-  formExtraRef: Function,
+  },
+  /** 表格操作 */
+  actionRef: {
+    type: Object as PropType<Ref<ActionType >>,
+    default: undefined,
+  },
+  formRef: {
+    type: Object as PropType<Ref<FormInstance | undefined >>,
+    default: undefined,
+  },
+  /** 默认参数 */
   params: {
     type: Object as PropType<Record<any, any>>,
     default: undefined,
-  }, // 默认参数
+  },
   /**
    * @type SearchConfig
    * @name 是否显示搜索表单
@@ -67,7 +80,7 @@ export const ProTableProps = {
     default: undefined,
   },
   beforeSearchSubmit: {
-    type: [Function],
+    type: Function as PropType<(params: Record<any, any>) => Record<any, any>>,
     default: undefined,
   },
   onLoad: {
@@ -104,4 +117,4 @@ export interface ProCoreActionType {
 export type ActionType = ProCoreActionType & {
   // fullScreen?: () => void;
   setPageInfo?: (page: Partial<PageInfo>) => void;
-};
+} | null;

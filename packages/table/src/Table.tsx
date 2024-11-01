@@ -4,7 +4,7 @@ import type { TablePaginationConfig } from "ant-design-vue/es/table";
 import type { ActionType, IValueEnum, ProColumns } from "./typing";
 import { QueryFilter } from "@antd-vc/pro-form";
 import { Badge, Card, Table } from "ant-design-vue";
-import { cloneDeep, isFunction, omit } from "lodash-es";
+import { cloneDeep, isFunction } from "lodash-es";
 import { defineComponent, onMounted, provide, reactive, ref } from "vue";
 import ToolBar from "./components/ToolBar";
 import { ProTableProps } from "./typing";
@@ -115,22 +115,6 @@ export default defineComponent({
       },
     };
 
-    if (props.formExtraRef) {
-      // console.log("init formExtraRef");
-      props?.formExtraRef({
-        setFieldsValue: (values: any) => {
-          // console.log(values);
-          // 分页参数，后面需要改成pros.pagination传过来
-          if (values.current) {
-            pagination.value.current = +values.current;
-          }
-          if (values.pageSize) {
-            pagination.value.pageSize = +values.pageSize;
-          }
-          Object.assign(formState, omit(values, ["current", "pageSize"]));
-        },
-      });
-    }
     /** 聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
     onMounted(() => {
       // 手动模式和 request 为空都不生效
@@ -148,7 +132,7 @@ export default defineComponent({
     });
     onMounted(() => {
       if (props.actionRef) {
-        props?.actionRef(action);
+        props.actionRef.value = action;
       }
       useFetchData({ current: pagination.value.current, pageSize: pagination.value.pageSize });
     });
@@ -164,6 +148,7 @@ export default defineComponent({
             tableAction={action}
             loading={loading.value}
             formState={formState}
+            formRef={props.formRef}
           />
         )}
         <Card bordered={false} bodyStyle={{ padding: "0 24px" }}>

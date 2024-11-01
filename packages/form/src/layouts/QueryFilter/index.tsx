@@ -1,10 +1,10 @@
-import type { ActionType, IValueEnum, ProColumns } from "@antd-vc/pro-table";
+import type { IValueEnum, ProColumns } from "@antd-vc/pro-table";
 import type { FormInstance } from "ant-design-vue/es/form";
-import type { SearchConfig } from "./types";
 import { DownOutlined } from "@ant-design/icons-vue";
 import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
-import { computed, defineComponent, onActivated, type PropType, ref } from "vue";
+import { computed, defineComponent, onActivated, onMounted, ref } from "vue";
 import { useWindowWidth } from "./hooks";
+import { ProFormProps } from "./types";
 import { getSpanConfig } from "./utils";
 
 const layout = "horizontal";
@@ -14,36 +14,7 @@ let isFirstShow = true;
 
 export default defineComponent({
   name: "QueryFilter",
-  props: {
-    columns: Array, // 字段
-    lookUpCondition: {
-      type: [Function],
-      default: undefined,
-    },
-    /**
-     * @type SearchConfig
-     * @name 是否显示搜索表单
-     */
-    search: {
-      type: [Object] as PropType<SearchConfig>,
-      default: () => ({}),
-    },
-    useFetchData: {
-      type: Function,
-    },
-    tableAction: {
-      type: Object as PropType<ActionType>,
-    },
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-    formState: {
-      type: Object as PropType<Record<string, any>>,
-      default: () => ({}),
-      required: true,
-    },
-  },
+  props: ProFormProps,
   setup(props) {
     // 在页面激活时刷新数据
     onActivated(() => {
@@ -148,6 +119,11 @@ export default defineComponent({
         {props.search?.searchText || "查询"}
       </Button>,
     ];
+    onMounted(() => {
+      if (props.formRef) {
+        props.formRef.value = formRef.value;
+      }
+    });
     return () => (
       <Card
         bordered={false}
