@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
 
+import { name } from "../../package.json";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "pro-components",
@@ -25,4 +26,5 @@ export default defineConfig({
       { icon: "github", link: "https://github.com/vuejs/vitepress" },
     ],
   },
+  base: `/${name}/`,
 });
