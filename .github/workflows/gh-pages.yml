@@ -1,0 +1,32 @@
+name: github pages
+
+on:
+  push:
+    branches:
+      - master # default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Run npm scripts
+        run: |
+          node -v
+          pnpm -v
+          pnpm install
+          pnpm run docs:build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/.vitepress/dist

@@ -1,5 +1,3 @@
-import process from "node:process";
-
 const isNode
   = typeof process !== "undefined"
   && process.versions != null
