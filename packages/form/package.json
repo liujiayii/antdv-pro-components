@@ -22,7 +22,7 @@
     "@ant-design/icons-vue": "^7.0.1",
     "ant-design-vue": "^4.2.5",
     "classnames": "^2.5.1",
-    "dayjs": "^1.11.11",
+    "dayjs": "^1.11.13",
     "lodash-es": "^4.17.21",
     "query-string": "^9.1.1",
     "sass": "^1.80.3",
