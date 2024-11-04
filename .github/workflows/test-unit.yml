@@ -1,0 +1,27 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: test-unit
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Run test
+        run: |
+          node -v
+          pnpm -v
+          pnpm install
+          pnpm run test
