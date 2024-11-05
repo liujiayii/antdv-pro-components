@@ -144,7 +144,6 @@ export default defineComponent({
         {props.search && (
           <QueryFilter
             columns={props.columns}
-            lookUpCondition={props.lookUpCondition}
             search={props.search as SearchConfig}
             useFetchData={useFetchData}
             tableAction={actionRef}

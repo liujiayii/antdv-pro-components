@@ -1,6 +1,6 @@
 import type { SearchConfig } from "@antd-vc/pro-form";
 import type { BadgeProps } from "ant-design-vue/es/badge";
-import type { FormInstance } from "ant-design-vue/es/form";
+import type { FormInstance, FormItemProps } from "ant-design-vue/es/form";
 import type { ColumnType } from "ant-design-vue/es/table";
 import type { PropType, Ref } from "vue";
 
@@ -25,6 +25,7 @@ export type ProColumns<T = any> = {
   valueType?: IValueType;
   hideInTable?: boolean;
   colSize?: number;
+  formItemProps?: ((form: FormInstance, config: any) => FormItemProps) | FormItemProps;
 } & ColumnType;
 
 /** ProTable 的类型定义 继承自 antd 的 Table */
@@ -74,10 +75,6 @@ export const ProTableProps = {
   search: {
     type: [Boolean, Object] as PropType<boolean | SearchConfig>,
     default: () => ({}),
-  },
-  lookUpCondition: {
-    type: [Function],
-    default: undefined,
   },
   expandable: Object,
   dataSource: {
