@@ -33,7 +33,7 @@ export default defineComponent({
     const searchArr = computed<ProColumns[]>(() => {
       return (
         (props.columns as ProColumns[])?.filter((item: any) => {
-          const result = item.search !== false && item.dataIndex;
+          const result = item.search !== false && item.dataIndex && item.valueType !== "option";
           if (result) {
             const colSize = item?.colSize ?? 1;
             const colSpan = Math.min(spanSize.value.span * (colSize || 1), 24);
@@ -61,7 +61,7 @@ export default defineComponent({
       // 查询重置按钮也会占一个spanSize格子，需要减掉计算
       return Math.max(1, 24 / spanSize.value.span - 1);
     });
-    const shownSearchArr = computed(() => {
+    const shownSearchArr = computed<ProColumns[]>(() => {
       return isCollapsed.value ? searchArr.value.slice(0, showLength.value) : searchArr.value;
     });
 
@@ -77,8 +77,14 @@ export default defineComponent({
       return 24 - offsetSpan;
     });
 
-    const handleSubmit = () => {
-      // console.log('查询')
+    const handleSubmit = async () => {
+      // console.log("查询");
+      try {
+        await formRef.value?.validateFields();
+      // eslint-disable-next-line unused-imports/no-unused-vars
+      } catch (e) {
+        return;
+      }
       props.tableAction?.value?.setPageInfo?.({ current: 1 });
       props.useFetchData?.();
     };
@@ -99,21 +105,7 @@ export default defineComponent({
       </Button>,
       <Button
         type="primary"
-        onClick={() => {
-          // 查询的前置条件
-          if (props.lookUpCondition) {
-            // 把modelRef传出去
-            props.lookUpCondition(formState).then((res: boolean) => {
-              // console.log("查询条件res", res);
-              // 成立才执行
-              if (res) {
-                handleSubmit();
-              }
-            });
-          } else {
-            handleSubmit();
-          }
-        }}
+        onClick={handleSubmit}
         loading={props.loading}
       >
         {props.search?.searchText || "查询"}
@@ -132,12 +124,17 @@ export default defineComponent({
       >
         <Form name="search" layout={spanSize.value.layout} model={formState} ref={formRef}>
           <Row gutter={24} justify="start">
-            {shownSearchArr.value.map((item: any) => (
+            {shownSearchArr.value.map((item) => (
               <Col span={item.colSpan} key={item.dataIndex}>
                 <Form.Item
                   label={item.title}
                   name={item.dataIndex as string}
-                  {...item.formItemWidth}
+                  {...(item as any).formItemWidth}
+                  {
+                    ... typeof item.formItemProps === "function"
+                      ? item.formItemProps(formRef.value as FormInstance, item)
+                      : item.formItemProps
+                  }
                 >
                   {item.renderFormItem
                     ? (
@@ -150,7 +147,7 @@ export default defineComponent({
                     : typeof item.search === "object" && item.search?.options
                       ? (
                           <Select
-                            v-model:value={formState[item.dataIndex]}
+                            v-model:value={formState[item.dataIndex as string]}
                             options={item.search.options.value}
                             showSearch={true}
                             placeholder={`请选择${item.title}`}
@@ -160,7 +157,7 @@ export default defineComponent({
                       : item.valueEnum
                         ? (
                             <Select
-                              v-model:value={formState[item.dataIndex]}
+                              v-model:value={formState[item.dataIndex as string]}
                               options={Object.keys(item.valueEnum).map((i) => ({
                                 value: i,
                                 label:
@@ -175,14 +172,14 @@ export default defineComponent({
                         : item.valueType === "dateTime"
                           ? (
                               <DatePicker
-                                v-model:value={formState[item.dataIndex]}
+                                v-model:value={formState[item.dataIndex as string]}
                                 placeholder={`请输入${item.title}`}
                                 allowClear
                               />
                             )
                           : (
                               <Input
-                                v-model:value={formState[item.dataIndex]}
+                                v-model:value={formState[item.dataIndex as string]}
                                 placeholder={`请输入${item.title}`}
                                 allowClear
                               />

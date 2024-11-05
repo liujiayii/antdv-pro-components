@@ -1,16 +1,15 @@
-import type { ActionType } from "@antd-vc/pro-table";
+import type { ActionType, ProColumns } from "@antd-vc/pro-table";
 import type { FormInstance } from "ant-design-vue/es/form";
 import type { defineComponent, PropType, Ref, VNode } from "vue";
 
 export const ProFormProps = {
-  columns: Array, // 字段
-  lookUpCondition: {
-    type: [Function],
-    default: undefined,
+  columns: {
+    type: Array as PropType<ProColumns[]>,
+    default: () => [],
   },
   formRef: {
-    type: Object as PropType<Ref<FormInstance | undefined>>,
-    default: undefined,
+    type: Object as PropType<Ref<FormInstance | undefined >>,
+    default: () => undefined,
   },
   /**
    * @type SearchConfig
