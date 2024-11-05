@@ -33,7 +33,7 @@ export default defineComponent({
     const searchArr = computed<ProColumns[]>(() => {
       return (
         (props.columns as ProColumns[])?.filter((item: any) => {
-          const result = item.search !== false && item.dataIndex;
+          const result = item.search !== false && item.dataIndex && item.valueType !== "option";
           if (result) {
             const colSize = item?.colSize ?? 1;
             const colSpan = Math.min(spanSize.value.span * (colSize || 1), 24);
