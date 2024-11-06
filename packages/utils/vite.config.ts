@@ -19,6 +19,7 @@ export default defineConfig({
     dts({
       entryRoot: resolve(__dirname, "src"),
       pathsToAliases: false,
+      exclude: ["**/__tests__/**"],
     }),
   ],
   build: {

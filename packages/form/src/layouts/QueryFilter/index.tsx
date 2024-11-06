@@ -115,7 +115,7 @@ export default defineComponent({
       if (props.formRef) {
         props.formRef.value = newFormRef;
       }
-    });
+    }, { immediate: true });
     return () => (
       <Card
         bordered={false}

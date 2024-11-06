@@ -137,7 +137,7 @@ export default defineComponent({
       if (props.actionRef) {
         props.actionRef.value = newActionRef;
       }
-    });
+    }, { immediate: true });
 
     return () => (
       <>
