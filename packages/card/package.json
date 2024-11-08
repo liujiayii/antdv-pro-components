@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
-    "dayjs": "^1.11.11"
+    "dayjs": "^1.11.13"
   },
   "devDependencies": {
     "ant-design-vue": "^4.2.5",
     "query-string": "^9.1.1",
-    "sass": "^1.80.3"
+    "sass": "^1.80.6"
   }
 }
