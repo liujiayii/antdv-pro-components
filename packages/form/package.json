@@ -16,6 +16,7 @@
     "build": "vite build"
   },
   "peerDependencies": {
+    "@antd-vc/pro-field": "latest",
     "@antd-vc/pro-utils": "latest"
   },
   "devDependencies": {
