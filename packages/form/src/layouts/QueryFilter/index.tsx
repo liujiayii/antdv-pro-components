@@ -1,8 +1,9 @@
-import type { IValueEnum, ProColumns } from "@antd-vc/pro-table";
+import type { ProColumns } from "@antd-vc/pro-table";
 import type { FormInstance } from "ant-design-vue/es/form";
 import { DownOutlined } from "@ant-design/icons-vue";
-import { Button, Card, Col, DatePicker, Form, Input, Row, Select, Space } from "ant-design-vue";
-import { computed, defineComponent, onActivated, ref, watch } from "vue";
+import { ProField } from "@antd-vc/pro-field";
+import { Button, Card, Col, Form, Row, Space } from "ant-design-vue";
+import { computed, defineComponent, onActivated, provide, reactive, ref, watch } from "vue";
 import { useWindowWidth } from "./hooks";
 import { ProFormProps } from "./types";
 import { getSpanConfig } from "./utils";
@@ -26,7 +27,7 @@ export default defineComponent({
     });
     const isCollapsed = ref(false);
     const formRef = ref<FormInstance>();
-    const formState = props.formState || ref<Record<string, any>>({});
+    const formState = props.formState || reactive<Record<string, any>>({});
     const width = useWindowWidth();
     const labelWidth = ref("80");
     const spanSize = computed(() => getSpanConfig(layout, width.value + 16, undefined));
@@ -64,7 +65,6 @@ export default defineComponent({
     const shownSearchArr = computed<ProColumns[]>(() => {
       return isCollapsed.value ? searchArr.value.slice(0, showLength.value) : searchArr.value;
     });
-
     const offset = computed(() => {
       const currentSpan = shownSearchArr.value.reduce((prev, cur) => {
         return prev + (cur.colSpan || 0);
@@ -116,6 +116,7 @@ export default defineComponent({
         props.formRef.value = newFormRef;
       }
     }, { immediate: true });
+    provide("formState", formState);
     return () => (
       <Card
         bordered={false}
@@ -144,46 +145,7 @@ export default defineComponent({
                           placeholder: `请选择${item.title}`,
                         })
                       )
-                    : typeof item.search === "object" && item.search?.options
-                      ? (
-                          <Select
-                            v-model:value={formState[item.dataIndex as string]}
-                            options={item.search.options.value}
-                            showSearch={true}
-                            placeholder={`请选择${item.title}`}
-                            allowClear
-                          />
-                        )
-                      : item.valueEnum
-                        ? (
-                            <Select
-                              v-model:value={formState[item.dataIndex as string]}
-                              options={Object.keys(item.valueEnum).map((i) => ({
-                                value: i,
-                                label:
-                          typeof (item.valueEnum as IValueEnum)[i] === "object"
-                            ? ((item.valueEnum as any)[i]?.text as unknown as string)
-                            : (item.valueEnum as IValueEnum)[i],
-                              }))}
-                              placeholder={`请选择${item.title}`}
-                              allowClear
-                            />
-                          )
-                        : item.valueType === "dateTime"
-                          ? (
-                              <DatePicker
-                                v-model:value={formState[item.dataIndex as string]}
-                                placeholder={`请输入${item.title}`}
-                                allowClear
-                              />
-                            )
-                          : (
-                              <Input
-                                v-model:value={formState[item.dataIndex as string]}
-                                placeholder={`请输入${item.title}`}
-                                allowClear
-                              />
-                            )}
+                    : <ProField mode="edit" column={item} />}
                 </Form.Item>
               </Col>
             ))}
