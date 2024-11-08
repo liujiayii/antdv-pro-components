@@ -1,5 +1,5 @@
 import type { SearchConfig } from "@antd-vc/pro-form";
-import type { CheckboxProps, DatePickerProps, InputNumberProps, InputProps, RadioProps, SelectProps, TextAreaProps, TimeRangePickerProps } from "ant-design-vue";
+import type { CheckboxProps, DatePickerProps, InputNumberProps, InputProps, RadioProps, SelectProps, TextAreaProps, TimePickerProps, TimeRangePickerProps } from "ant-design-vue";
 import type { BadgeProps } from "ant-design-vue/es/badge";
 import type { RangePickerProps } from "ant-design-vue/es/date-picker";
 import type { FormInstance, FormItemProps } from "ant-design-vue/es/form";
@@ -62,7 +62,7 @@ export interface ProFieldValueTypeWithFieldProps {
   /** 年范围选择器 */
   // dateYearRange: RangePickerProps;
   /** 时间选择器 */
-  time: TimeRangePickerProps;
+  time: TimePickerProps;
   /** 时间范围选择器 */
   timeRange: TimeRangePickerProps;
   /** 下拉选择器 */

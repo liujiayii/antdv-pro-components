@@ -1,16 +1,16 @@
 import type { ProColumns, ValueEnum } from "@antd-vc/pro-table";
 import type { DefaultOptionType } from "ant-design-vue/es/select";
+import type { ProFieldProps } from "../../types";
 import { Badge, Select } from "ant-design-vue";
 import { computed, type ComputedRef, defineComponent, inject } from "vue";
 
 export default defineComponent({
   name: "Select",
-  props: { },
   setup() {
-    const mode = inject<"edit" | "read">("mode", "read");
-    const value = inject<string | number>("value", "-");
-    const formState = inject<Record<string, any>>("formState", {});
-    const column = inject<ComputedRef<ProColumns | undefined>>("column", computed(() => undefined));
+    const mode = inject<ProFieldProps["mode"]>("mode", "read");
+    const value = inject<ProFieldProps["value"]>("value", "-");
+    const formState = inject<ProFieldProps["formState"]>("formState", {});
+    const column = inject<ComputedRef<ProColumns>>("column", computed(() => ({}) as ProColumns));
 
     const options = computed<DefaultOptionType[]>(() => {
       if (column.value?.valueEnum) {
@@ -36,14 +36,13 @@ export default defineComponent({
         case "edit":
           return (
             <Select
-              v-model:value={formState![column.value?.dataIndex as string]}
+              v-model:value={formState[column.value!.dataIndex as string]}
               placeholder={`请选择${column.value?.title}`}
               allowClear
               options={options.value}
-              {...column.value?.fieldProps}
+              {...(column.value?.fieldProps || {})}
             />
           );
-        case "read":
         default:
           return <>{fieldValue.value}</>;
       }

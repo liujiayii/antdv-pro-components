@@ -1,4 +1,5 @@
 import type { ProColumns, ValueType } from "@antd-vc/pro-table";
+import type { ProFieldProps } from "./types";
 import { computed, defineComponent, type PropType, provide } from "vue";
 import DateTime from "./components/date-time";
 import Money from "./components/money";
@@ -9,11 +10,11 @@ export default defineComponent({
   name: "ProField",
   props: {
     mode: {
-      type: String as PropType<"edit" | "read">,
+      type: String as PropType<ProFieldProps["mode"]>,
       default: "read",
     },
     value: {
-      type: [String, Number, Boolean, Object, Array],
+      type: [String, Number, Boolean, Object, Array] as PropType<ProFieldProps["value"]>,
       default: undefined,
     },
     column: {
@@ -29,6 +30,11 @@ export default defineComponent({
     provide("column", column);
     // console.log(props, "props");
     return () => {
+      const dataIndex = column.value?.dataIndex;
+      if (!dataIndex) {
+        console.warn("ProField component: Missing required dataIndex in column");
+        return null;
+      }
       if (valueType.value === "text" && props.column.valueEnum) {
         return <Select />;
       } else if (valueType.value === "dateTime") {
