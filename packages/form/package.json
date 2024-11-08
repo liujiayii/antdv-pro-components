@@ -16,8 +16,8 @@
     "build": "vite build"
   },
   "peerDependencies": {
-    "@antd-vc/pro-field": "latest",
-    "@antd-vc/pro-utils": "latest"
+    "@antd-vc/pro-field": "^0.x",
+    "@antd-vc/pro-utils": "^0.x"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
