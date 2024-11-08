@@ -16,6 +16,7 @@ export type ValueEnum = Record<string, {
   /** @name 是否禁用 */
   disabled?: boolean;
 } | string>;
+
 /**
  * ProFieldValueTypeWithFieldProps
  * 字段值类型与 ProFieldProps 的映射关系
@@ -125,11 +126,8 @@ export interface ProFieldValueTypeWithFieldProps {
   /** 显示/隐藏 */
   // dependency: FormItemProps;
 }
-export type ValueType = Extract<
-  keyof ProFieldValueTypeWithFieldProps,
-  any
->;
-// "text" | "dateTime" | "date" | "time" | "money" | "option";
+export type ValueType = keyof ProFieldValueTypeWithFieldProps;
+type FieldProps<T extends ValueType = "text"> = ProFieldValueTypeWithFieldProps[T];
 
 export type ProColumns<T = any> = {
   search?: boolean | { options: { value: any[] } };
@@ -147,7 +145,7 @@ export type ProColumns<T = any> = {
   hideInTable?: boolean;
   colSize?: number;
   formItemProps?: ((form: FormInstance, config: any) => FormItemProps) | FormItemProps;
-  fieldProps?: any;
+  fieldProps?: FieldProps<NonNullable<ValueType>>;
 } & ColumnType;
 
 /** ProTable 的类型定义 继承自 antd 的 Table */
