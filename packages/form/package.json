@@ -1,7 +1,7 @@
 {
   "name": "@antd-vc/pro-form",
   "type": "module",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "homepage": "https://github.com/liujiayii/antdv-pro-components",
   "repository": {
     "type": "git",
@@ -16,7 +16,8 @@
     "build": "vite build"
   },
   "peerDependencies": {
-    "@antd-vc/pro-utils": "latest"
+    "@antd-vc/pro-field": "^0.x",
+    "@antd-vc/pro-utils": "^0.x"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",

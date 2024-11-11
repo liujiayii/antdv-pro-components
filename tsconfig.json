@@ -7,12 +7,7 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "paths": {
-      "@antd-vc/pro-table": ["./packages/table"],
-      "@antd-vc/pro-form": ["./packages/form"],
-      "@antd-vc/pro-card": ["./packages/card"],
-      "@antd-vc/pro-utils": ["./packages/utils"]
-    },
+    "paths": { },
     "types": ["node"],
     "allowJs": true,
     "declaration": true,

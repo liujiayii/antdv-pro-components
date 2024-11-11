@@ -1,28 +1,16 @@
 import type { SearchConfig } from "@antd-vc/pro-form";
 import type { SizeType } from "ant-design-vue/es/config-provider";
 import type { TablePaginationConfig } from "ant-design-vue/es/table";
-import type { ActionType, IValueEnum, ProColumns } from "./typing";
+import type { ActionType, ProColumns } from "./typing";
+import { ProField } from "@antd-vc/pro-field";
 import { QueryFilter } from "@antd-vc/pro-form";
-import { Badge, Card, Table } from "ant-design-vue";
+import { Card, Table } from "ant-design-vue";
 import { cloneDeep, isFunction } from "lodash-es";
-import { defineComponent, onMounted, provide, reactive, ref, watch } from "vue";
+import { computed, defineComponent, onMounted, provide, reactive, ref, watch } from "vue";
+import EmptyPagination from "./components/empty-pagination";
 import ToolBar from "./components/ToolBar";
 import { ProTableProps } from "./typing";
-import { pageConfig, valueType } from "./utils";
-
-// 值的枚举
-function formatValueEnum(valueEnum: IValueEnum) {
-  return ({ text }: { text: string }) => {
-    const field = valueEnum[text];
-    if (typeof field === "object") {
-      return <Badge status={field.status} text={field.text} />;
-    } else if (typeof field === "string") {
-      return field;
-    } else {
-      return text;
-    }
-  };
-}
+import { pageConfig } from "./utils";
 
 function formatTableColumns(data: ProColumns[]) {
   return data
@@ -30,26 +18,17 @@ function formatTableColumns(data: ProColumns[]) {
       if (item.hideInTable) {
         return undefined;
       }
-      const row = { ...item };
-      if (item.valueType === "option") {
-        row.width = row.width ?? 200;
-      } else if (item.valueType) {
-        row.customRender = valueType[item.valueType];
-      } else if (item.valueEnum) {
-        row.customRender = item.customRender ?? formatValueEnum(item.valueEnum);
-      }
+      const row = {
+        ...item,
+        customRender: item.customRender ?? function ({ text }) {
+          return <ProField mode="read" value={text} column={item} />;
+        },
+      };
+      ;
       delete row.colSpan;
       return row;
     })
     .filter(Boolean);
-}
-/**
- * @name 空分页
- * @description 表格没数据时分页器会消失，因此需要一个空的div来撑起高度
- * @why 为什么分页器会消失？https://github.com/ant-design/ant-design/issues/46262
- */
-function EmptyPagination() {
-  return <div style={{ height: "24px" }}></div>;
 }
 
 export default defineComponent({
@@ -62,7 +41,7 @@ export default defineComponent({
     const tableSize = ref<SizeType[]>(["middle"]);
     const formState = reactive<Record<any, any>>({});
     provide("tableSize", tableSize);
-
+    const tableColumns = computed(() => formatTableColumns(props.columns as any));
     const useFetchData = (
       params: { current?: number; pageSize?: number } = { current: 1, pageSize: 10 },
     ) => {
@@ -160,7 +139,7 @@ export default defineComponent({
           />
           <Table
             bordered
-            columns={formatTableColumns(props.columns as any) as any}
+            columns={tableColumns.value as any}
             rowKey={props.rowKey as string}
             dataSource={props.dataSource ?? tableData.value}
             pagination={pagination.value}

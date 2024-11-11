@@ -1,7 +1,7 @@
 {
-  "name": "@antd-vc/pro-table",
+  "name": "@antd-vc/pro-field",
   "type": "module",
-  "version": "0.0.8",
+  "version": "0.0.2",
   "homepage": "https://github.com/liujiayii/antdv-pro-components",
   "repository": {
     "type": "git",
@@ -15,17 +15,14 @@
   "scripts": {
     "build": "vite build"
   },
-  "peerDependencies": {
-    "@antd-vc/pro-field": "^0.x",
-    "@antd-vc/pro-form": "^0.x"
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
     "ant-design-vue": "^4.2.5",
     "classnames": "^2.5.1",
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.11",
     "lodash-es": "^4.17.21",
-    "query-string": "^9.1.1",
+    "sass": "^1.80.3",
     "vue": "^3.5.12"
   }
 }
