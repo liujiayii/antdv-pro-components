@@ -10,7 +10,7 @@ export default defineComponent({
   name: "DateTime",
   setup() {
     const mode = inject<ProFieldProps["mode"]>("mode", "read");
-    const value = inject<ProFieldProps["value"]>("value", "-");
+    const value = inject<ProFieldProps["value"]>("value", computed(() => "-"));
     const formState = inject<ProFieldProps["formState"]>("formState", {});
     const column = inject<ComputedRef<ProColumns>>("column", computed(() => ({}) as ProColumns));
     return () => {
@@ -26,7 +26,7 @@ export default defineComponent({
             />
           );
         default:
-          return <>{value === "-" ? value : dayjs(value).format(VALUE_FORMAT)}</>;
+          return <>{value.value === "-" ? value : dayjs(value.value).format(VALUE_FORMAT)}</>;
       }
     };
   },

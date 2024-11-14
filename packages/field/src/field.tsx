@@ -23,9 +23,10 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const value = computed(() => props.value);
     const column = computed(() => props.column);
     const valueType = computed<ValueType>(() => props.column.valueType || "text");
-    provide("value", props.value);
+    provide("value", value);
     provide("mode", props.mode);
     provide("column", column);
     // console.log(props, "props");

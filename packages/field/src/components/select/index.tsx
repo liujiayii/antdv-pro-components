@@ -8,7 +8,7 @@ export default defineComponent({
   name: "Select",
   setup() {
     const mode = inject<ProFieldProps["mode"]>("mode", "read");
-    const value = inject<ProFieldProps["value"]>("value", "-");
+    const value = inject<ProFieldProps["value"]>("value", computed(() => "-"));
     const formState = inject<ProFieldProps["formState"]>("formState", {});
     const column = inject<ComputedRef<ProColumns>>("column", computed(() => ({}) as ProColumns));
 
@@ -25,8 +25,8 @@ export default defineComponent({
       return [];
     });
     const fieldValue = computed(() => {
-      if (column.value?.valueEnum && value !== "-") {
-        const item = (column.value?.valueEnum as ValueEnum)[value];
+      if (column.value?.valueEnum && value.value !== "-") {
+        const item = (column.value?.valueEnum as ValueEnum)[value.value];
         return (typeof item === "object" ? <Badge {...item} /> : item) || "-";
       }
       return "-";

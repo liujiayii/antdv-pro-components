@@ -1,7 +1,7 @@
 import type { SearchConfig } from "@antd-vc/pro-form";
 import type { SizeType } from "ant-design-vue/es/config-provider";
 import type { TablePaginationConfig } from "ant-design-vue/es/table";
-import type { ActionType, ProColumns } from "./typing";
+import type { ActionType } from "./typing";
 import { ProField } from "@antd-vc/pro-field";
 import { QueryFilter } from "@antd-vc/pro-form";
 import { Card, Table } from "ant-design-vue";
@@ -11,25 +11,6 @@ import EmptyPagination from "./components/empty-pagination";
 import ToolBar from "./components/ToolBar";
 import { ProTableProps } from "./typing";
 import { pageConfig } from "./utils";
-
-function formatTableColumns(data: ProColumns[]) {
-  return data
-    .map((item) => {
-      if (item.hideInTable) {
-        return undefined;
-      }
-      const row = {
-        ...item,
-        customRender: item.customRender ?? function ({ text }) {
-          return <ProField mode="read" value={text} column={item} />;
-        },
-      };
-      ;
-      delete row.colSpan;
-      return row;
-    })
-    .filter(Boolean);
-}
 
 export default defineComponent({
   name: "ProTable",
@@ -41,7 +22,22 @@ export default defineComponent({
     const tableSize = ref<SizeType[]>(["middle"]);
     const formState = reactive<Record<any, any>>({});
     provide("tableSize", tableSize);
-    const tableColumns = computed(() => formatTableColumns(props.columns as any));
+
+    const tableColumns = computed(() => {
+      return props.columns.map((item) => {
+        if (item.hideInTable) {
+          return undefined;
+        }
+        const row = {
+          ...item,
+          customRender: item.customRender ?? function ({ text }) {
+            return <ProField mode="read" value={text} column={item} />;
+          },
+        };
+        delete row.colSpan;
+        return row;
+      }).filter(Boolean);
+    });
     const useFetchData = (
       params: { current?: number; pageSize?: number } = { current: 1, pageSize: 10 },
     ) => {
