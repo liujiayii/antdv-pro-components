@@ -7,7 +7,7 @@ export default defineComponent({
   name: "Money",
   setup() {
     const mode = inject<ProFieldProps["mode"]>("mode", "read");
-    const value = inject<ProFieldProps["value"]>("value", "-");
+    const value = inject<ProFieldProps["value"]>("value", computed(() => "-"));
     const formState = inject<ProFieldProps["formState"]>("formState", {});
     const column = inject<ComputedRef<ProColumns>>("column", computed(() => ({}) as ProColumns));
     return () => {
@@ -22,7 +22,7 @@ export default defineComponent({
             />
           );
         default:
-          return <>{value === "-" ? "-" : `￥${value}`}</>;
+          return <>{value.value === "-" ? "-" : `￥${value}`}</>;
       }
     };
   },
