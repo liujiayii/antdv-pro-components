@@ -22,7 +22,7 @@ export default defineComponent({
             />
           );
         default:
-          return <>{value.value === "-" ? "-" : `￥${value}`}</>;
+          return <>{value.value === "-" ? "-" : `￥${value.value}`}</>;
       }
     };
   },
