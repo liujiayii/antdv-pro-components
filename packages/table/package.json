@@ -17,7 +17,7 @@
   },
   "peerDependencies": {
     "@antd-vc/pro-field": "^0.0.4",
-    "@antd-vc/pro-form": "^0.0.10"
+    "@antd-vc/pro-form": "^0.0.11"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^7.0.1",
