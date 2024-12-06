@@ -3,28 +3,17 @@ import type { FormInstance } from "ant-design-vue/es/form";
 import { DownOutlined } from "@ant-design/icons-vue";
 import { ProField } from "@antd-vc/pro-field";
 import { Button, Card, Col, Form, Row, Space } from "ant-design-vue";
-import { computed, defineComponent, onActivated, provide, reactive, ref, watch } from "vue";
+import { computed, defineComponent, provide, reactive, ref, watch } from "vue";
 import { useWindowWidth } from "./hooks";
 import { ProFormProps } from "./types";
 import { getSpanConfig } from "./utils";
 
 const layout = "horizontal";
 
-// 缓存首次渲染
-let isFirstShow = true;
-
 export default defineComponent({
   name: "QueryFilter",
   props: ProFormProps,
   setup(props) {
-    // 在页面激活时刷新数据
-    onActivated(() => {
-      if (isFirstShow) {
-        isFirstShow = false;
-        return;
-      }
-      props.useFetchData?.();
-    });
     const isCollapsed = ref(false);
     const formRef = ref<FormInstance>();
     const formState = props.formState || reactive<Record<string, any>>({});

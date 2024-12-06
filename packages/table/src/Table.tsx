@@ -6,11 +6,14 @@ import { ProField } from "@antd-vc/pro-field";
 import { QueryFilter } from "@antd-vc/pro-form";
 import { Card, Table } from "ant-design-vue";
 import { cloneDeep, isFunction } from "lodash-es";
-import { computed, defineComponent, onMounted, provide, reactive, ref, watch } from "vue";
+import { computed, defineComponent, onActivated, onMounted, provide, reactive, ref, watch } from "vue";
 import EmptyPagination from "./components/empty-pagination";
 import ToolBar from "./components/ToolBar";
 import { ProTableProps } from "./typing";
 import { pageConfig } from "./utils";
+
+// 缓存首次渲染
+let isFirstShow = true;
 
 export default defineComponent({
   name: "ProTable",
@@ -90,6 +93,14 @@ export default defineComponent({
       },
     });
 
+    // 在页面激活时刷新数据
+    onActivated(() => {
+      if (isFirstShow) {
+        isFirstShow = false;
+        return;
+      }
+      actionRef.value?.reload();
+    });
     /** 聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
     onMounted(() => {
       // 手动模式和 request 为空都不生效
