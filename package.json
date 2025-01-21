@@ -40,7 +40,7 @@
     "vite": "^6.0.11",
     "vite-plugin-dts": "^4.5.0",
     "vitepress": "^1.6.1",
-    "vitest": "^3.0.2"
+    "vitest": "^3.0.3"
   },
   "pnpm": {
     "peerDependencyRules": {
